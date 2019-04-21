@@ -1,5 +1,4 @@
-<html>
-<head>
+
 <title>轱辘</title>
 <style>
     * {margin: 0; padding: 0; box-sizing: border-box;}
@@ -19,24 +18,34 @@
 </style>
 </head>
 <body>
-<div id="app">
-    <!--如果是正常的元素，在这里加一个click事件就可以了，但这是组件，所以还需要在组件内的button按钮上添加click事件-->
-    <!--另外， :loading="true"  ，这时，若loading之前不带冒号，则相当于给loading赋值字符串"true"；如果带冒号，表示赋值布尔值true，此时true带不带引号均可 -->
-    <g-button :loading="loading1"  @click="loading1 = !loading1">
-        按钮
-    </g-button>
-    <g-button icon="setting" :loading="loading2"  @click="loading2 = !loading2">
-        按钮
-    </g-button>
-    <g-button icon="setting" icon-position="right" :loading="loading3"  @click="loading3 = !loading3">
-        按钮
-    </g-button>
-    <g-button-group>
+<!--如果是正常的元素，在这里加一个click事件就可以了，但这是组件，所以还需要在组件内的button按钮上添加click事件-->
+<!--另外， :loading="true"  ，这时，若loading之前不带冒号，则相当于给loading赋值字符串"true"；如果带冒号，表示赋值布尔值true，此时true带不带引号均可 -->
+<g-button :loading="loading1"  @click="loading1 = !loading1">
+
+<g-button icon="setting" :loading="true"  @click="loading2 = !loading2">
+
+<g-button icon="setting" icon-position="right" :loading="loading3"  @click="loading3 = !loading3">
+
+<g-button-group>
         <g-button icon="left">上一页</g-button>
         <g-button>更多</g-button>
         <g-button icon="right" icon-position="right">下一页</g-button>
         <!--若未指定插槽，所以以上三个g-button都会放进插槽内-->
-    </g-button-group>
+</g-button-group>
+<div id="app">
+
+    <g-button>
+        按钮
+    </g-button>
+    <g-button icon="setting">
+
+        按钮
+    </g-button>
+    <g-button icon="setting" icon-position="right">
+
+        按钮
+    </g-button>
+
 </div>
 
 <script src="./src/app.js"></script>

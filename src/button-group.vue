@@ -27,6 +27,9 @@
             margin-left: -1px;
             /*margin-left: -1px; 这一句是为了使两个g-button之间的border由两个变成一个（因为有一个g-button的border被另一个g-button挡住了）*/
             /*一开始是令一个g-button的border-right为none，但是这样以后可能会出bug*/
+            &:not(:first-child) {
+                margin-left: -1px;
+            }
             &:first-child {
                 border-top-left-radius: var(--border-radius);
                 border-bottom-left-radius: var(--border-radius);
