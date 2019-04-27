@@ -9,7 +9,11 @@
     </button>
 </template>
 <script>
+    import Icon from './icon'
     export default {
+        components: {
+            'g-icon': Icon
+        },
         //props: ['icon', 'iconPosition']
         //下面这种传参方法，将参数视为一个对象，可设置默认值和校验器
         props: {

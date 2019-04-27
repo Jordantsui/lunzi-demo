@@ -4,7 +4,9 @@
   "description": "一个UI框架",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev-test": "parcel watch test/* --no-cache & karma start",
+    "test": "parcel build test/* --no-cache --no-minify && karma start --single-run"
+
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,6 @@
     "karma-sinon-chai": "^2.0.2",
     "mocha": "^6.1.4",
     "parcel-bundler": "^1.12.3",
-    "puppeteer": "^1.5.0",
     "sass": "^1.19.0",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0",
