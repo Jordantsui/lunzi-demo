@@ -1,0 +1,83 @@
+@charset "UTF-8";
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.g-button {
+  font-size: var(--font-size);
+  height: var(--button-height);
+  padding: 0 1em;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--button-bg);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  /*上面这两个用于按钮内部的元素居中，vertical-align 用于按钮与外部的东西对齐*/
+  /*加入 display: inline 之后，会出现两个按钮上下不对称的情况，此时加上 vertical-align: middle 可破之*/
+  vertical-align: middle;
+  /*  >  这个符号表示递进关系*/
+  /*order 是在使用flex布局之后，用以改变元素顺序的，默认是0*/
+}
+.g-button:hover {
+  border-color: var(--border-color-hover);
+}
+.g-button:active {
+  background-color: var(--button-active-bg);
+}
+.g-button:focus {
+  outline: none;
+}
+.g-button > .content {
+  order: 2;
+}
+.g-button > .icon {
+  order: 1;
+  margin-right: 0.1em;
+}
+.g-button.icon-right > .content {
+  order: 1;
+}
+.g-button.icon-right > .icon {
+  order: 2;
+  margin-right: 0;
+  margin-left: 0.1em;
+}
+.g-button .loading {
+  animation: spin 2s infinite linear;
+}
+.g-icon {
+  width: 1em;
+  height: 1em;
+}
+@charset "UTF-8";
+.g-button-group {
+  display: inline-flex;
+  vertical-align: middle;
+}
+.g-button-group > .g-button {
+  border-radius: 0;
+  margin-left: -1px;
+  /*margin-left: -1px; 这一句是为了使两个g-button之间的border由两个变成一个（因为有一个g-button的border被另一个g-button挡住了）*/
+  /*一开始是令一个g-button的border-right为none，但是这样以后可能会出bug*/
+}
+.g-button-group > .g-button:not(:first-child) {
+  margin-left: -1px;
+}
+.g-button-group > .g-button:first-child {
+  border-top-left-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+.g-button-group > .g-button:last-child {
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+.g-button-group > .g-button:hover {
+  position: relative;
+  z-index: 1;
+  /*加了这句之后，当悬浮在一个g-button上时，这个g-button被挡住的border会出现在上层*/
+}
