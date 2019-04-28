@@ -1,3 +1,7 @@
+.g-icon {
+  width: 1em;
+  height: 1em;
+}
 @charset "UTF-8";
 @keyframes spin {
   0% {
@@ -49,10 +53,6 @@
 }
 .g-button .loading {
   animation: spin 2s infinite linear;
-}
-.g-icon {
-  width: 1em;
-  height: 1em;
 }
 @charset "UTF-8";
 .g-button-group {
