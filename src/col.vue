@@ -1,10 +1,7 @@
 <template>
-    <div class="col" :class="[span && `col-${span}`, offset && `offset-${offset}`]"
-         :style="{paddingLeft: gutter/2+'px', paddingRight: gutter/2+'px'}"><!--注意，必须得加 px-->
+    <div class="col" :class="colClass" :style="colStyle"><!--注意，必须得加 px-->
         <!--一行内每个col元素都要加paddingLeft 和 paddingRight，然后给row元素加负的marginLeft 和 marginRight-->
-        <div style="border: 1px solid green; height: 100px;">
-            <slot></slot>
-        </div>
+         <slot></slot>
     </div>
 </template>
 <script>
@@ -23,11 +20,20 @@
                 gutter: 0
             }
         },//这个gutter由父组件 row 传过来（浏览器要求写在data里）
-        created () {
-            console.log('col created')
-        },
-        mounted () {
-            console.log('col mounted')
+        computed: {
+            colClass () {
+                let {span, offset} = this
+                return [
+                    span && `col-${span}`,
+                    offset && `offset-${offset}`
+                ]
+            },
+            colStyle () {
+                return {
+                    paddingLeft: this.gutter / 2 + 'px',
+                    paddingRight: this.gutter / 2 + 'px',
+                }
+            }
         }
     }
 </script>
