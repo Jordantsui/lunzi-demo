@@ -41,7 +41,7 @@
     <div style="border: 1px solid black;">
 
         <g-row gutter="20">
-            <g-col>1</g-col><!--需要有内容“1”-->
+<!--            <g-col>1</g-col>&lt;!&ndash;需要有内容“1”&ndash;&gt;
             <g-col>2</g-col>
         </g-row>
         <g-row gutter="20">
@@ -57,9 +57,27 @@
         </g-row>
         <g-row gutter="20">
             <g-col span="2">1</g-col>
-            <!--注意，不加冒号，传的是字符串，加上冒号，:span="2"，传的是数字-->
-            <!--如果加了动态绑定，还是想绑定一个字符串（有病），可用 :span="'2'" （这里双引号是html的，里面的单引号是js的）或 :span="`2`"-->
-            <g-col span="20" offset="2">11</g-col>
+            &lt;!&ndash;注意，不加冒号，传的是字符串，加上冒号，:span="2"，传的是数字&ndash;&gt;
+            &lt;!&ndash;如果加了动态绑定，还是想绑定一个字符串（有病），可用 :span="'2'" （这里双引号是html的，里面的单引号是js的）或 :span="`2`"&ndash;&gt;
+            <g-col span="20" offset="2">11</g-col>-->
+            <g-col span="2"
+                   :phone="{span:24}"
+                   :ipad="{span:8}"
+                   :narrow-pc="{span:4}"
+                   :pc="{span:2}"
+                   :wide-pc="{span:1}"
+            >
+                <!--五种响应式，必须要选其中一种；如果没选，则用默认的span-->
+                1
+            </g-col>
+            <g-col span="22"
+                   :phone="{span:24}"
+                   :ipad="{span:16}"
+                   :narrow-pc="{span:20}"
+                   :pc="{span:22}"
+                   :wide-pc="{span:23}"
+            >11
+            </g-col>
         </g-row>
         <g-row gutter="20">
             <g-col span="4">1</g-col>
