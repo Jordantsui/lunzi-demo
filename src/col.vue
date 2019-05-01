@@ -39,7 +39,7 @@
 </script>
 <style scoped lang="scss">
     .col {
-        width: 50%;
+        /*width: 50%;*/
 
         /*下面是scss for loop（for循环）*/
         $class-prefix: col-;/*前缀*/
