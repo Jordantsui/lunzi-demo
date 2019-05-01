@@ -33,6 +33,32 @@
         <!--若未指定插槽，所以以上三个g-button都会放进插槽内-->
 
 <div id="app">
+    <g-row>
+        <g-col>1</g-col><!--需要有内容“1”-->
+        <g-col>2</g-col>
+    </g-row>
+    <g-row>
+        <g-col>1</g-col>
+        <g-col>2</g-col>
+        <g-col>3</g-col>
+    </g-row>
+    <g-row>
+        <g-col>1</g-col>
+        <g-col>2</g-col>
+        <g-col>3</g-col>
+        <g-col>4</g-col>
+    </g-row>
+    <g-row>
+        <g-col span="2">1</g-col>
+        <!--注意，不加冒号，传的是字符串，加上冒号，:span="2"，传的是数字-->
+        <!--如果加了动态绑定，还是想绑定一个字符串（有病），可用 :span="'2'" （这里双引号是html的，里面的单引号是js的）或 :span="`2`"-->
+        <g-col span="22">11</g-col>
+    </g-row>
+    <g-row>
+        <g-col span="4">1</g-col>
+        <g-col span="20">11</g-col>
+    </g-row>
+    <hr>
     <div class="box">
         <!--<g-input value="张三" disabled></g-input>
         这里，给disabled变量绑定值为布尔值true，则写为 :disabled='true'，只写 disabled，就会默认给disabled 赋值布尔值true-->
