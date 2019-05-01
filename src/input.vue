@@ -1,7 +1,15 @@
 <template>
     <div class="wrapper" :class="{error}">
         <!--意思是如果有 error 这个参数，就有error这个类；上面这个是简写-->
-        <input :value="value" type="text" :disabled="disabled" :readonly="readonly">
+        <input :value="value" type="text" :disabled="disabled" :readonly="readonly"
+               @change="$emit('change', $event.target.value)"
+               @input="$emit('input', $event.target.value)"
+               @focus="$emit('focus', $event.target.value)"
+               @blur="$emit('blur', $event.target.value)"
+        >
+        <!--$event 是该次事件的详细信息，传给了新触发的事件，必须放在第一个参数的位置-->
+        <!--:value 和 @change 构成了 v-model 双向绑定，注意，参数一定要是$event.target.value-->
+
         <template v-if="error">
             <icon name="error" class="icon-error"></icon>
             <span class="errorMessage">{{error}}</span>

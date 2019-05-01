@@ -22,9 +22,9 @@
         body {
             font-size: var(--font-size);
         }</style>
-    <style>
-
-    </style>
+    <style>.box{
+            margin: 20px;
+        }</style>
 <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 <body>
 <!--如果是正常的元素，在这里加一个click事件就可以了，但这是组件，所以还需要在组件内的button按钮上添加click事件-->
@@ -33,20 +33,35 @@
         <!--若未指定插槽，所以以上三个g-button都会放进插槽内-->
 
 <div id="app">
-    <g-button :loading="loading1" @click="loading1 = !loading1">
-        按钮
-    </g-button>
-    <g-button icon="setting" :loading="loading2" @click="loading2 = !loading2">
-        按钮
-    </g-button>
-    <g-button icon="setting" icon-position="right" :loading="loading3" @click="loading3 = !loading3">
-        按钮
-    </g-button>
-    <g-button-group>
-        <g-button icon="left">上一页</g-button>
-        <g-button>更多</g-button>
-        <g-button icon="right" icon-position="right">下一页</g-button>
-    </g-button-group>
+    <div class="box">
+        <!--<g-input value="张三" disabled></g-input>
+        这里，给disabled变量绑定值为布尔值true，则写为 :disabled='true'，只写 disabled，就会默认给disabled 赋值布尔值true-->
+        <!--<g-input value="李四" readonly></g-input>
+        <g-input value="王五"></g-input>
+    </div>
+    <div class="box">
+        <g-input value="王" error="姓名不能少于两个字"></g-input>-->
+        <!--<g-input value="王" @change="inputChange"></g-input>-->
+        <g-input v-model="message"></g-input>
+        <p>{{message}}</p>
+        <button @click="message+=1">+1</button>
+    </div>
+    <div class="box">
+        <g-button :loading="loading1" @click="loading1 = !loading1">
+            按钮
+        </g-button>
+        <g-button icon="settings" :loading="loading2" @click="loading2 = !loading2">
+            按钮
+        </g-button>
+        <g-button icon="settings" icon-position="right" :loading="loading3" @click="loading3 = !loading3">
+            按钮
+        </g-button>
+        <g-button-group>
+            <g-button icon="left">上一页</g-button>
+            <g-button>更多</g-button>
+            <g-button icon="right" icon-position="right">下一页</g-button>
+        </g-button-group>
+    </div>
 </div>
 
 <script src="/app.a6a4d504.js"></script>
