@@ -35,23 +35,37 @@
                 gutter: 0
             }
         },//这个gutter由父组件 row 传过来（浏览器要求写在data里）
+        methods: {
+            createClasses (obj, str = '') {
+                if (!obj) {return []}
+                let array = []
+                if (obj.span) { array.push(`col-${str}${obj.span}`) }
+                if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
+                return array
+            }
+        },
         computed: {
             colClass () {
                 let {span, offset, phone, ipad, narrowPc, pc, widePc} = this
-                let phoneClass = []
+                let createClasses = this.createClasses
                 return [
-                    span && `col-${span}`,
+/*                    span && `col-${span}`,
                     offset && `offset-${offset}`,
                     // ... (phone && [`col-phone-${phone.span}`]),
-/*                    ... (ipad && [`col-ipad-${ipad.span}`]),
+/!*                    ... (ipad && [`col-ipad-${ipad.span}`]),
                     ... (narrowPc && [`col-narrow-pc-${narrowPc.span}`]),
                     ... (pc && [`col-pc-${pc.span}`]),
-                    ... (widePc && [`col-wide-pc-${widePc.span}`]),*/
+                    ... (widePc && [`col-wide-pc-${widePc.span}`]),*!/
                     ... (phone ? [`col-phone-${phone.span}`]:[]),
                     ... (ipad ? [`col-ipad-${ipad.span}`] : []),
                     ... (narrowPc ? [`col-narrow-pc-${narrowPc.span}`] : []),
                     ... (pc ? [`col-pc-${pc.span}`] : []),
-                    ... (widePc ? [`col-wide-pc-${widePc.span}`] : []),
+                    ... (widePc ? [`col-wide-pc-${widePc.span}`] : []),*/
+                    ...createClasses({span, offset}),
+                    ...createClasses(ipad, 'ipad-'),
+                    ...createClasses(narrowPc, 'narrow-pc-'),
+                    ...createClasses(pc, 'pc-'),
+                    ...createClasses(widePc, 'wide-pc-'),
                 ]
             },
             colStyle () {
