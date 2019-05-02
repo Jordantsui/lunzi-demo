@@ -36,8 +36,36 @@
 <!--另外， :loading="true"  ，这时，若loading之前不带冒号，则相当于给loading赋值字符串"true"；如果带冒号，表示赋值布尔值true，此时true带不带引号均可 -->
 
         <!--若未指定插槽，所以以上三个g-button都会放进插槽内-->
+<style>
+    .demo {
+        background: #ddd;
+        border: 1px solid #666;
+        height: 100px;
+    }
+</style>
 
 <div id="app">
+    <g-row>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+        <g-col span="24" :narrow-pc="{span:8}">
+            <div class="demo"></div>
+        </g-col>
+    </g-row>
+    <hr>
     <div style="border: 1px solid black;">
 
         <g-row gutter="20">
