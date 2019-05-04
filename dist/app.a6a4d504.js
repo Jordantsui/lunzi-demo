@@ -13483,8 +13483,79 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
-  name: 'GuluToast'
+  name: 'GuluToast',
+  props: {
+    autoClose: {
+      type: Boolean,
+      default: true
+    },
+    autoCloseDelay: {
+      type: Number,
+      default: 50 //浅拷贝，不用写成函数返回的形式
+
+    },
+    closeButton: {
+      type: Object,
+      default: function _default() {
+        return {
+          text: '关闭',
+          callback: undefined //虽然是对象，但是必须要写成函数返回的形式。这是因为 export default 内的内容并不是组件本身，而是构成组件的选项
+          //如果写成对象的形式，用此组件构造了两个实例，更改其中一个实例的 closeButton，另一个会受影响
+          //如果写成函数返回的形式，两个实例，两个对象，不会互相影响
+
+        };
+      }
+    },
+    enableHtml: {
+      type: Boolean,
+      default: false
+    }
+  },
+  created: function created() {},
+  mounted: function mounted() {
+    this.updateStyles();
+    this.execAutoClose();
+  },
+  methods: {
+    updateStyles: function updateStyles() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.$refs.line.style.height = "".concat(_this.$refs.wrapper.getBoundingClientRect().height, "px");
+      });
+    },
+    execAutoClose: function execAutoClose() {
+      var _this2 = this;
+
+      if (this.autoClose) {
+        setTimeout(function () {
+          _this2.close();
+        }, this.autoCloseDelay * 1000);
+      }
+    },
+    close: function close() {
+      this.$el.remove();
+      this.$destroy();
+    },
+    log: function log() {
+      console.log('测试');
+    },
+    onClickClose: function onClickClose() {
+      this.close();
+
+      if (this.closeButton && typeof this.closeButton.callback === 'function') {
+        this.closeButton.callback(this); //this === toast实例，可利用这个功能将toast组件中的函数等回传
+      }
+    }
+  }
 };
 exports.default = _default;
         var $b07137 = exports.default || module.exports;
@@ -13499,7 +13570,28 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "toast" }, [_vm._t("default")], 2)
+  return _c("div", { ref: "wrapper", staticClass: "toast" }, [
+    _c(
+      "div",
+      { staticClass: "message" },
+      [
+        !_vm.enableHtml
+          ? _vm._t("default")
+          : _c("div", {
+              domProps: { innerHTML: _vm._s(_vm.$slots.default[0]) }
+            })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { ref: "line", staticClass: "line" }),
+    _vm._v(" "),
+    _vm.closeButton
+      ? _c("span", { staticClass: "close", on: { click: _vm.onClickClose } }, [
+          _vm._v("\n        " + _vm._s(_vm.closeButton.text) + "\n    ")
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13548,11 +13640,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var _default = {
   install: function install(Vue, options) {
-    Vue.prototype.$toast = function (message) {
+    Vue.prototype.$toast = function (message, toastOptions) {
       //我们如果不用vue的方法，做这一步很简单，用createElement创建一个div，再将此div插进页面中即可
       //但是我们要用vue，所以就有了下面的方法：
       var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor();
+      var toast = new Constructor({
+        propsData: toastOptions
+      });
       toast.$slots.default = [message];
       toast.$mount();
       document.body.appendChild(toast.$el);
@@ -24680,6 +24774,7 @@ _vue.default.component('g-toast', _toast.default);
 
 _vue.default.use(_plugin.default);
 
+var h = _vue.default;
 new _vue.default({
   el: '#app',
   data: {
@@ -24688,21 +24783,24 @@ new _vue.default({
     loading3: false,
     message: 'hi'
   },
-  created: function created() {//setTimeout(()=>{
+  created: function created() {
+    //setTimeout(()=>{
     //    let event = new Event('change');
     //    let inputElement = this.$el.querySelector('input')
     //    inputElement.dispatchEvent(event)
     //    console.log('hi')
     //},3000)
+    this.$toast('文字', {
+      //可接受toast组件回传的东西
+      enableHtml: false
+    });
   },
   methods: {
     inputChange: function inputChange(e) {
       console.log(e);
     },
     //e代表了 change 的内容！！！（需要按一次回车，才算一次change）
-    showToast: function showToast() {
-      this.$toast('我是 message');
-    }
+    showToast: function showToast() {}
   }
 });
 
@@ -24933,7 +25031,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "12367" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13472" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

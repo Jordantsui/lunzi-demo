@@ -27,6 +27,9 @@ Vue.component('g-sider', Sider)
 Vue.component('g-toast', Toast)
 Vue.use(plugin)
 
+import createElement from 'vue'
+
+const h = createElement
 
 new Vue({
     el: '#app',
@@ -43,13 +46,15 @@ new Vue({
         //    inputElement.dispatchEvent(event)
         //    console.log('hi')
         //},3000)
+        this.$toast('文字', {    //可接受toast组件回传的东西
+            enableHtml: false
+        })
     },
     methods: {
         inputChange(e) {
             console.log(e)
         },//e代表了 change 的内容！！！（需要按一次回车，才算一次change）
         showToast() {
-            this.$toast('我是 message')
         }
     }
 })
