@@ -5,7 +5,7 @@
     </div>
 </template>
 <script>
-    let validator = (value) => {
+    let validator = (value) => {//为什么不写methods里面？？？？
         let keys = Object.keys(value)
         let valid = true
         keys.forEach(key => {
@@ -53,7 +53,7 @@
                     offset && `offset-${offset}`,
                     // ... (phone && [`col-phone-${phone.span}`]),
 /!*                    ... (ipad && [`col-ipad-${ipad.span}`]),
-                    ... (narrowPc && [`col-narrow-pc-${narrowPc.span}`]),
+                    ... (narrowPc && [`col-narrow-pc-${narrowPc.span}`]),             //如果narrowPc不存在，则此项是 undefined，故这种写法不行
                     ... (pc && [`col-pc-${pc.span}`]),
                     ... (widePc && [`col-wide-pc-${widePc.span}`]),*!/
                     ... (phone ? [`col-phone-${phone.span}`]:[]),
@@ -62,6 +62,7 @@
                     ... (pc ? [`col-pc-${pc.span}`] : []),
                     ... (widePc ? [`col-wide-pc-${widePc.span}`] : []),*/
                     ...createClasses({span, offset}),
+                    ...createClasses(phone, 'phone-'),
                     ...createClasses(ipad, 'ipad-'),
                     ...createClasses(narrowPc, 'narrow-pc-'),
                     ...createClasses(pc, 'pc-'),
@@ -79,6 +80,7 @@
 </script>
 <style scoped lang="scss">
     .col {
+
         /*width: 50%;*/
 
         /*下面是scss for loop（for循环）*/
@@ -89,13 +91,14 @@
             }
         }
         /*为了在一行内定义可变化的间隙，可添加offset属性，生成24个offset类*/
+        /*gutter定义了一行内两个col元素之间固定的间距，offset则定义了每个col元素左边间距的变化量*/
         $class-prefix: offset-;
         @for $n from 1 through 24 {
             &.#{$class-prefix}#{$n} {
                 margin-left: ($n / 24) * 100%;
             }
         }
-        @media (max-width: 576px) {
+        @media (max-width: 576px) {   /*响应式*/
             $class-prefix: col-phone-;
             @for $n from 1 through 24 {
                 &.#{$class-prefix}#{$n} {

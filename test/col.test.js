@@ -19,8 +19,8 @@ describe('Col', () => {
                 span: 1
             }
         }).$mount(div)
-        const element = vm.$el
         expect(vm.$el.classList.contains('col-1')).to.eq(true)
+        //JS不包括contains方法，包括includes方法，但是这里，contains可用、includes不可用？？？
         div.remove()
         vm.$destroy()
     })
@@ -99,4 +99,4 @@ describe('Col', () => {
         vm.$destroy()
     })
 
-}) 
+})

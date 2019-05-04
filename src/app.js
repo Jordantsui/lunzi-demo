@@ -32,7 +32,7 @@ new Vue({
     methods: {
         inputChange(e) {
             console.log(e)
-        }
+        }//e代表了 change 的内容！！！（需要按一次回车，才算一次change）
     }
 })
 

@@ -19,7 +19,7 @@
         },
         computed: {
             rowStyle () {
-                let {gutter} = this //注意这一句，解构赋值
+                let {gutter} = this //注意这一句，解构赋值（注意，this指代的是props！！！）
                 return {marginLeft: -gutter / 2 + 'px', marginRight: -gutter / 2 + 'px'}
             },
             rowClass () {
@@ -27,10 +27,11 @@
                 return [align && `align-${align}`]
             }
         },
-        mounted () {
+        mounted () {  //mounted？？？
             this.$children.forEach((vm) => {
                 vm.gutter = this.gutter
             })
+            //将gutter参数传给col组件
         }
     }
 </script>

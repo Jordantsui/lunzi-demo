@@ -12768,6 +12768,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
 var _default = {
   components: {
     Icon: _icon.default
@@ -12775,6 +12778,7 @@ var _default = {
   name: 'GuluInput',
   props: {
     value: {
+      //value指输入框的内容
       type: String
     },
     disabled: {
@@ -12786,6 +12790,7 @@ var _default = {
       default: false
     },
     error: {
+      //error指报错信息
       type: String
     }
   }
@@ -12899,7 +12904,7 @@ var _default = {
   },
   computed: {
     rowStyle: function rowStyle() {
-      var gutter = this.gutter; //注意这一句，解构赋值
+      var gutter = this.gutter; //注意这一句，解构赋值（注意，this指代的是props！！！）
 
       return {
         marginLeft: -gutter / 2 + 'px',
@@ -12914,9 +12919,10 @@ var _default = {
   mounted: function mounted() {
     var _this = this;
 
+    //mounted？？？
     this.$children.forEach(function (vm) {
       vm.gutter = _this.gutter;
-    });
+    }); //将gutter参数传给col组件
   }
 };
 exports.default = _default;
@@ -12995,6 +13001,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 //
 //
 var validator = function validator(value) {
+  //为什么不写methods里面？？？？
   var keys = Object.keys(value);
   var valid = true;
   keys.forEach(function (key) {
@@ -13041,6 +13048,27 @@ var _default = {
     };
   },
   //这个gutter由父组件 row 传过来（浏览器要求写在data里）
+  methods: {
+    createClasses: function createClasses(obj) {
+      var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      if (!obj) {
+        return [];
+      }
+
+      var array = [];
+
+      if (obj.span) {
+        array.push("col-".concat(str).concat(obj.span));
+      }
+
+      if (obj.offset) {
+        array.push("offset-".concat(str).concat(obj.offset));
+      }
+
+      return array;
+    }
+  },
   computed: {
     colClass: function colClass() {
       var span = this.span,
@@ -13050,8 +13078,11 @@ var _default = {
           narrowPc = this.narrowPc,
           pc = this.pc,
           widePc = this.widePc;
-      var phoneClass = [];
-      return [span && "col-".concat(span), offset && "offset-".concat(offset)].concat(_toConsumableArray(phone ? ["col-phone-".concat(phone.span)] : []), _toConsumableArray(ipad ? ["col-ipad-".concat(ipad.span)] : []), _toConsumableArray(narrowPc ? ["col-narrow-pc-".concat(narrowPc.span)] : []), _toConsumableArray(pc ? ["col-pc-".concat(pc.span)] : []), _toConsumableArray(widePc ? ["col-wide-pc-".concat(widePc.span)] : []));
+      var createClasses = this.createClasses;
+      return [].concat(_toConsumableArray(createClasses({
+        span: span,
+        offset: offset
+      })), _toConsumableArray(createClasses(phone, 'phone-')), _toConsumableArray(createClasses(ipad, 'ipad-')), _toConsumableArray(createClasses(narrowPc, 'narrow-pc-')), _toConsumableArray(createClasses(pc, 'pc-')), _toConsumableArray(createClasses(widePc, 'wide-pc-')));
     },
     colStyle: function colStyle() {
       return {
@@ -24224,7 +24255,8 @@ new _vue.default({
   methods: {
     inputChange: function inputChange(e) {
       console.log(e);
-    }
+    } //e代表了 change 的内容！！！（需要按一次回车，才算一次change）
+
   }
 });
 
@@ -24455,7 +24487,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6926" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6763" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

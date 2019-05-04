@@ -139,6 +139,7 @@
   /*下面是scss for loop（for循环）*/
   /*前缀*/
   /*为了在一行内定义可变化的间隙，可添加offset属性，生成24个offset类*/
+  /*gutter定义了一行内两个col元素之间固定的间距，offset则定义了每个col元素左边间距的变化量*/
   /*@media (min-width: 577px) and (max-width: 768px) {*/
   /*@media (min-width: 769px) and (max-width: 992px) {*/
   /*@media (min-width: 993px) and (max-width: 1200px) {*/
@@ -288,6 +289,9 @@
   margin-left: 100%;
 }
 @media (max-width: 576px) {
+.col[data-v-a60445] {
+    /*响应式*/
+}
 .col.col-phone-1[data-v-a60445] {
     width: 4.1666666667%;
 }

@@ -16,6 +16,7 @@ describe('Row', () => {
         Vue.component('g-col', Col)
         const div = document.createElement('div')
         document.body.appendChild(div)
+        //这里注意，不知道如何用JS将一个组件添加到另一个组件中，所以采用这种方法
         div.innerHTML = `
       <g-row gutter="20">
         <g-col span="12"></g-col>
@@ -24,7 +25,7 @@ describe('Row', () => {
     `
         const vm = new Vue({
             el: div
-        })
+        })             //必须要有一个vue组件
         setTimeout(() => {
             const row = vm.$el.querySelector('.row')
             expect(getComputedStyle(row).marginLeft).to.eq('-10px')

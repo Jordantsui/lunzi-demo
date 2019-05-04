@@ -39,8 +39,8 @@
     }</style>
 
 <div id="app">
-    <g-row>
-        <g-col span="24" :narrow-pc="{span:8}">
+<!--    <g-row>-->
+<!--        <g-col span="24" :narrow-pc="{span:8}">
             <div class="demo"></div>
         </g-col>
         <g-col span="24" :narrow-pc="{span:8}">
@@ -55,9 +55,13 @@
         <g-col span="24" :narrow-pc="{span:8}">
             <div class="demo"></div>
         </g-col>
-        <g-col span="24" :narrow-pc="{span:8}">
+        <g-col span="24" :narrow-pc="{span:8}">-->
+<!--        <g-col span="23" offset="1" :narrow-pc="{span:12, offset:12}">
             <div class="demo"></div>
-        </g-col>
+        </g-col>-->
+    <g-row gutter="20">
+        <g-col span="12"></g-col>
+        <g-col span="12"></g-col>
     </g-row>
     <hr>
     <div style="border: 1px solid black;">
@@ -110,18 +114,22 @@
     </div>
     <hr>
     <div class="box">
-        <!--<g-input value="张三" disabled></g-input>
-        这里，给disabled变量绑定值为布尔值true，则写为 :disabled='true'，只写 disabled，就会默认给disabled 赋值布尔值true-->
-        <!--<g-input value="李四" readonly></g-input>
+        <g-input value="张三" disabled=""></g-input>
+        <!--这里，给disabled变量绑定值为布尔值true，则写为 :disabled='true'，只写 disabled，就会默认给disabled 赋值布尔值true-->
+        <g-input value="李四" readonly=""></g-input>
         <g-input value="王五"></g-input>
     </div>
     <div class="box">
-        <g-input value="王" error="姓名不能少于两个字"></g-input>-->
-        <!--<g-input value="王" @change="inputChange"></g-input>-->
+        <g-input value="王" error="姓名不能少于两个字"></g-input>
+        <br>
+        <g-input value="王" @change="inputChange"></g-input>
+        <!--在这里，input元素先触发change事件，然后又触发g-input组件的change事件，再触发inputChange函数，$event信息从第一步一直传过来-->
+        <br>
         <g-input v-model="message"></g-input>
         <p>{{message}}</p>
-        <button @click="message+=1">+1</button>
+        <button @click="message+=1">+1</button><!--注意，这里只是简单的message，没有this之类的东西-->
     </div>
+    <hr>
     <div class="box">
         <g-button :loading="loading1" @click="loading1 = !loading1">
             按钮

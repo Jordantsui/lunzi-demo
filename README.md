@@ -30,11 +30,11 @@
   ```
   IE 15 及以上浏览器都支持此样式。
 
-2. 安装 gulu
+2. 安装 lunzige
   ```
   npm i --save lunzige
   ```
-3. 引入 gulu
+3. 引入 lunzige
   ```
   import {ButtonGroup, Button, Icon} from 'lunzige'
   import 'lunzige/dist/index.css'

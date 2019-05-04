@@ -8,10 +8,13 @@
                @blur="$emit('blur', $event.target.value)"
         >
         <!--$event 是该次事件的详细信息，传给了新触发的事件，必须放在第一个参数的位置-->
-        <!--:value 和 @change 构成了 v-model 双向绑定，注意，参数一定要是$event.target.value-->
+        <!--:value 和 @input 构成了 v-model 双向绑定，注意，参数一定要是$event.target.value-->
+        <!--change这些事件都是input组件的事件，要让他们发挥作用，需要将其转化为input元素的事件-->
+        <!--input事件需要按回车才会被看作一次input事件；change事件需要把鼠标移出输入框才会被看作一次change事件-->
 
         <template v-if="error">
             <icon name="error" class="icon-error"></icon>
+            <!--name用来选取icon-->
             <span class="errorMessage">{{error}}</span>
         </template>
         <!--需要有个东西承担 v-if 功能，但又不想多写个div标签，可这样写，icon和span是input的兄弟元素-->
@@ -23,7 +26,7 @@
         components: {Icon},
         name: 'GuluInput',
         props: {
-            value: {
+            value: {//value指输入框的内容
                 type: String
             },
             disabled: {
@@ -34,7 +37,7 @@
                 type: Boolean,
                 default: false
             },
-            error: {
+            error: {//error指报错信息
                 type: String
             }
         }
