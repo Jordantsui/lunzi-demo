@@ -16,7 +16,7 @@
         mounted () {
             this.$children.forEach((vm) => {
                 if (vm.$options.name === 'GuluSider') {
-                    this.layoutClass.hasSider = true
+                    this.layoutClass.hasSider = true    //注意这里改变类的方式，是vue的思想
                 }
             })
         }
@@ -28,7 +28,6 @@
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        border: 1px solid red;
         &.hasSider {
             flex-direction: row;
         }

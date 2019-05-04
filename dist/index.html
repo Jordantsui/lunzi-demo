@@ -17,9 +17,9 @@
             --border-color: #999;
             --border-color-hover: #666;
         }
-        #app {
+/*        #app {
             margin: 20px;
-        }
+        }*/
         body {
             font-size: var(--font-size);
         }</style>
@@ -33,12 +33,35 @@
 
         <!--若未指定插槽，所以以上三个g-button都会放进插槽内-->
 <style>.demo {
-        background: #ddd;
         border: 1px solid #666;
+        min-height: 100px;
+    }
+    .sider {
+        background: #333;
+        width: 150px;
+    }
+    .sider.slide-enter, .sider.slide-leave-to {
+        margin-left: -150px;
+    }      /*这个是需要用户根据情况自己添加的，可覆盖slider.vue中的同名样式*/
+    .header {
+        background: #999;
         height: 100px;
+    }
+    .footer {
+        background: #ccc;
+        height: 50px;
     }</style>
 
 <div id="app">
+    <g-layout style="height: 100vh;">
+        <g-sider>sider</g-sider>
+        <g-layout>
+            <g-header>header</g-header>
+            <g-content>content</g-content>
+            <g-footer>footer</g-footer>
+        </g-layout>
+    </g-layout>
+    <hr>
 <!--    <g-row>-->
 <!--        <g-col span="24" :narrow-pc="{span:8}">
             <div class="demo"></div>

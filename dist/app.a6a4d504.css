@@ -1021,3 +1021,32 @@
     margin-left: 100%;
 }
 }
+.layout[data-v-095b17] {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.layout.hasSider[data-v-095b17] {
+  flex-direction: row;
+}
+@charset "UTF-8";
+.sider[data-v-60764e] {
+  position: relative;
+}
+.sider > button[data-v-60764e] {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.slide-enter-active[data-v-60764e], .slide-leave-active[data-v-60764e] {
+  /*html中的transition和这里的两个css均来自vue文档*/
+  transition: all 0.3s;
+  /*transition的name与这里样式的开头保持一致*/
+}
+.slide-enter[data-v-60764e], .slide-leave-to[data-v-60764e] {
+  /*在用margin-left之前，还尝试了transform，但问题是，slider消失的过程中，右边的几个格没动，消失完成，才移动，效果不太好*/
+  margin-left: -200px;
+}
+.content[data-v-57d482] {
+  flex-grow: 1;
+}
