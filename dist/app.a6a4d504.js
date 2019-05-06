@@ -13493,6 +13493,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 var _default = {
   name: 'GuluToast',
   props: {
@@ -13544,7 +13546,7 @@ var _default = {
       var _this = this;
 
       this.$nextTick(function () {
-        _this.$refs.line.style.height = "".concat(_this.$refs.wrapper.getBoundingClientRect().height, "px");
+        _this.$refs.line.style.height = "".concat(_this.$refs.toast.getBoundingClientRect().height, "px");
       });
     },
     execAutoClose: function execAutoClose() {
@@ -13558,6 +13560,7 @@ var _default = {
     },
     close: function close() {
       this.$el.remove();
+      this.$emit('close');
       this.$destroy();
     },
     log: function log() {
@@ -13585,10 +13588,8 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { ref: "wrapper", staticClass: "toast", class: _vm.toastClasses },
-    [
+  return _c("div", { staticClass: "wrapper", class: _vm.toastClasses }, [
+    _c("div", { ref: "toast", staticClass: "toast" }, [
       _c(
         "div",
         { staticClass: "message" },
@@ -13608,11 +13609,15 @@ exports.default = _default;
         ? _c(
             "span",
             { staticClass: "close", on: { click: _vm.onClickClose } },
-            [_vm._v("\n        " + _vm._s(_vm.closeButton.text) + "\n    ")]
+            [
+              _vm._v(
+                "\n            " + _vm._s(_vm.closeButton.text) + "\n        "
+              )
+            ]
           )
         : _vm._e()
-    ]
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -13666,13 +13671,17 @@ var _default = {
       //我们如果不用vue的方法，做这一步很简单，用createElement创建一个div，再将此div插进页面中即可
       //但是我们要用vue，所以就有了下面的方法：
       if (currentToast) {
-        currentToast.close();
+        currentToast.close(); //close之后，currentToast并没有变成undefined/null，因此，再次进入install函数时，即使已经关闭，也会再次close
+        //因此，虽然功能没有问题，但代码仍有bug，所以加了onClose函数
       }
 
       currentToast = createToast({
         Vue: Vue,
         message: message,
-        propsData: toastOptions
+        propsData: toastOptions,
+        onClose: function onClose() {
+          currentToast = null;
+        }
       });
     };
   }
@@ -13684,13 +13693,15 @@ exports.default = _default;
 function createToast(_ref) {
   var Vue = _ref.Vue,
       message = _ref.message,
-      propsData = _ref.propsData;
+      propsData = _ref.propsData,
+      onClose = _ref.onClose;
   var Constructor = Vue.extend(_toast.default);
   var toast = new Constructor({
     propsData: propsData
   });
   toast.$slots.default = [message];
   toast.$mount();
+  toast.$on('close', onClose);
   document.body.appendChild(toast.$el);
   return toast;
 }
@@ -24838,9 +24849,18 @@ new _vue.default({
       console.log(e);
     },
     //e代表了 change 的内容！！！（需要按一次回车，才算一次change）
-    showToast: function showToast() {
+    showToast1: function showToast1() {
+      this.showToast('top');
+    },
+    showToast2: function showToast2() {
+      this.showToast('middle');
+    },
+    showToast3: function showToast3() {
+      this.showToast('bottom');
+    },
+    showToast: function showToast(position) {
       this.$toast("\u4F60\u7684\u667A\u5546\u76EE\u524D\u4E3A ".concat(parseInt(Math.random() * 100), "\u3002\u4F60\u7684\u667A\u5546\u9700\u8981\u5145\u503C\uFF01"), {
-        position: 'middle',
+        position: position,
         enableHtml: false,
         closeButton: {
           text: '已充值',
@@ -25082,7 +25102,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2900" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11773" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

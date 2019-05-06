@@ -1051,12 +1051,67 @@
   flex-grow: 1;
 }
 @charset "UTF-8";
+@keyframes slide-up-data-v-b07137 {
+0% {
+    opacity: 0;
+    transform: translateY(100%);
+}
+100% {
+    opacity: 1;
+    transform: translateY(0%);
+}
+}
+@keyframes slide-down-data-v-b07137 {
+0% {
+    opacity: 0;
+    transform: translateY(-100%);
+}
+100% {
+    opacity: 1;
+    transform: translateY(0%);
+}
+}
+@keyframes fade-in-data-v-b07137 {
+0% {
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+.wrapper[data-v-b07137] {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.wrapper.position-top[data-v-b07137] {
+  top: 0;
+}
+.wrapper.position-top .toast[data-v-b07137] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  animation: slide-down-data-v-b07137 300ms;
+}
+.wrapper.position-bottom[data-v-b07137] {
+  bottom: 0;
+}
+.wrapper.position-bottom .toast[data-v-b07137] {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  animation: slide-up-data-v-b07137 300ms;
+}
+.wrapper.position-middle[data-v-b07137] {
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+.wrapper.position-middle .toast[data-v-b07137] {
+  animation: fade-in-data-v-b07137 300ms;
+}
 .toast[data-v-b07137] {
   font-size: 14px;
   min-height: 40px;
   line-height: 1.8;
   /*line-height有什么用？？？？*/
-  position: fixed;
   display: flex;
   color: white;
   align-items: center;
@@ -1065,7 +1120,6 @@
   /*解决border内的居中问题，比较简单的是用flex，以及align-items、justify-content*/
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   padding: 0 16px;
-  left: 50%;
 }
 .toast .message[data-v-b07137] {
   padding: 8px 0;
@@ -1078,17 +1132,4 @@
   height: 100%;
   border-left: 1px solid #666;
   margin-left: 16px;
-}
-.toast.position-top[data-v-b07137] {
-  top: 0;
-  transform: translateX(-50%);
-}
-.toast.position-bottom[data-v-b07137] {
-  bottom: 0;
-  transform: translateX(-50%);
-}
-.toast.position-middle[data-v-b07137] {
-  top: 50%;
-  transform: translate(-50%, -50%);
-  /*X在前，Y在后*/
 }
