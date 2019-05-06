@@ -56,7 +56,7 @@ new Vue({
         },//e代表了 change 的内容！！！（需要按一次回车，才算一次change）
         showToast() {
             this.$toast(`你的智商目前为 ${parseInt(Math.random() * 100)}。你的智商需要充值！`, {
-                position: 'middle',
+                position: 'bottom',
                 enableHtml: false,
                 closeButton: {
                     text: '已充值',
