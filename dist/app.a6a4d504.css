@@ -1057,9 +1057,6 @@
   line-height: 1.8;
   /*line-height有什么用？？？？*/
   position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   color: white;
   align-items: center;
@@ -1068,6 +1065,7 @@
   /*解决border内的居中问题，比较简单的是用flex，以及align-items、justify-content*/
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   padding: 0 16px;
+  left: 50%;
 }
 .toast .message[data-v-b07137] {
   padding: 8px 0;
@@ -1080,4 +1078,17 @@
   height: 100%;
   border-left: 1px solid #666;
   margin-left: 16px;
+}
+.toast.position-top[data-v-b07137] {
+  top: 0;
+  transform: translateX(-50%);
+}
+.toast.position-bottom[data-v-b07137] {
+  bottom: 0;
+  transform: translateX(-50%);
+}
+.toast.position-middle[data-v-b07137] {
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /*X在前，Y在后*/
 }

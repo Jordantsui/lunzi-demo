@@ -46,9 +46,20 @@ new Vue({
         //    inputElement.dispatchEvent(event)
         //    console.log('hi')
         //},3000)
-        this.$toast('文字', {    //可接受toast组件回传的东西
-            enableHtml: false
-        })
+/*        this.$toast('文字', {    //可接受toast组件回传的东西
+            enableHtml: false*/
+        this.$toast('你的智商需要充值！', {
+            position: 'middle',
+            enableHtml: false,
+            closeButton: {
+                text: '已充值',
+                callback() {
+                    console.log('他说已经充值智商了')
+                }
+            },
+            autoClose: false,
+            autoCloseDelay: 3
+        })      //一般不支持message是html
     },
     methods: {
         inputChange(e) {
