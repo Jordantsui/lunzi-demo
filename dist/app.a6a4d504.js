@@ -13659,22 +13659,41 @@ var _toast = _interopRequireDefault(require("./toast"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var currentToast;
 var _default = {
   install: function install(Vue, options) {
     Vue.prototype.$toast = function (message, toastOptions) {
       //我们如果不用vue的方法，做这一步很简单，用createElement创建一个div，再将此div插进页面中即可
       //但是我们要用vue，所以就有了下面的方法：
-      var Constructor = Vue.extend(_toast.default);
-      var toast = new Constructor({
+      if (currentToast) {
+        currentToast.close();
+      }
+
+      currentToast = createToast({
+        Vue: Vue,
+        message: message,
         propsData: toastOptions
       });
-      toast.$slots.default = [message];
-      toast.$mount();
-      document.body.appendChild(toast.$el);
     };
   }
 };
+/* helpers */
+
 exports.default = _default;
+
+function createToast(_ref) {
+  var Vue = _ref.Vue,
+      message = _ref.message,
+      propsData = _ref.propsData;
+  var Constructor = Vue.extend(_toast.default);
+  var toast = new Constructor({
+    propsData: propsData
+  });
+  toast.$slots.default = [message];
+  toast.$mount();
+  document.body.appendChild(toast.$el);
+  return toast;
+}
 },{"./toast":"src/toast.vue"}],"node_modules/assertion-error/index.js":[function(require,module,exports) {
 /*!
  * assertion-error
@@ -24804,8 +24823,7 @@ new _vue.default({
     loading3: false,
     message: 'hi'
   },
-  created: function created() {
-    //setTimeout(()=>{
+  created: function created() {//setTimeout(()=>{
     //    let event = new Event('change');
     //    let inputElement = this.$el.querySelector('input')
     //    inputElement.dispatchEvent(event)
@@ -24814,25 +24832,26 @@ new _vue.default({
 
     /*        this.$toast('文字', {    //可接受toast组件回传的东西
                 enableHtml: false*/
-    this.$toast('你的智商需要充值！', {
-      position: 'middle',
-      enableHtml: false,
-      closeButton: {
-        text: '已充值',
-        callback: function callback() {
-          console.log('他说已经充值智商了');
-        }
-      },
-      autoClose: false,
-      autoCloseDelay: 3
-    }); //一般不支持message是html
   },
   methods: {
     inputChange: function inputChange(e) {
       console.log(e);
     },
     //e代表了 change 的内容！！！（需要按一次回车，才算一次change）
-    showToast: function showToast() {}
+    showToast: function showToast() {
+      this.$toast("\u4F60\u7684\u667A\u5546\u76EE\u524D\u4E3A ".concat(parseInt(Math.random() * 100), "\u3002\u4F60\u7684\u667A\u5546\u9700\u8981\u5145\u503C\uFF01"), {
+        position: 'middle',
+        enableHtml: false,
+        closeButton: {
+          text: '已充值',
+          callback: function callback() {
+            console.log('他说已经充值智商了');
+          }
+        },
+        autoClose: false,
+        autoCloseDelay: 3
+      }); //一般不支持message是html
+    }
   }
 });
 
@@ -25063,7 +25082,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2465" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2900" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
