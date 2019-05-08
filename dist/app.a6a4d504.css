@@ -1052,12 +1052,11 @@
 }
 @charset "UTF-8";
 @keyframes slide-up-data-v-b07137 {
+  /*注意，这个对应的是bottom*/
 0% {
-    opacity: 0;
     transform: translateY(100%);
 }
 100% {
-    opacity: 1;
     transform: translateY(0%);
 }
 }

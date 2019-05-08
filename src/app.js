@@ -27,10 +27,6 @@ Vue.component('g-sider', Sider)
 Vue.component('g-toast', Toast)
 Vue.use(plugin)
 
-import createElement from 'vue'
-
-const h = createElement
-
 new Vue({
     el: '#app',
     data: {
@@ -53,7 +49,7 @@ new Vue({
     methods: {
         inputChange(e) {
             console.log(e)
-        },//e代表了 change 的内容！！！（需要按一次回车，才算一次change）
+        },//e代表了 change 的内容！！！（需要按一次回车，才算一次change）（input组件）
         showToast1(){
             this.showToast('top')
         },
@@ -73,8 +69,7 @@ new Vue({
                         console.log('他说已经充值智商了')
                     }
                 },
-                autoClose: false,
-                autoCloseDelay: 3
+                autoClose: 3,
             })      //一般不支持message是html
         }
     }

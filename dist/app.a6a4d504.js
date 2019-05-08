@@ -13499,12 +13499,11 @@ var _default = {
   name: 'GuluToast',
   props: {
     autoClose: {
-      type: Boolean,
-      default: true
-    },
-    autoCloseDelay: {
-      type: Number,
-      default: 50 //浅拷贝，不用写成函数返回的形式
+      type: [Boolean, Number],
+      default: 5,
+      validator: function validator(value) {
+        return value === false || typeof value === 'number';
+      } //浅拷贝，不用写成函数返回的形式
 
     },
     closeButton: {
@@ -13512,7 +13511,8 @@ var _default = {
       default: function _default() {
         return {
           text: '关闭',
-          callback: undefined //虽然是对象，但是必须要写成函数返回的形式。这是因为 export default 内的内容并不是组件本身，而是构成组件的选项
+          callback: undefined //？？？？？？？
+          //虽然是对象，但是必须要写成函数返回的形式。这是因为 export default 内的内容并不是组件本身，而是构成组件的选项
           //如果写成对象的形式，用此组件构造了两个实例，更改其中一个实例的 closeButton，另一个会受影响
           //如果写成函数返回的形式，两个实例，两个对象，不会互相影响
 
@@ -13531,7 +13531,6 @@ var _default = {
       }
     }
   },
-  created: function created() {},
   mounted: function mounted() {
     this.updateStyles();
     this.execAutoClose();
@@ -13555,7 +13554,7 @@ var _default = {
       if (this.autoClose) {
         setTimeout(function () {
           _this2.close();
-        }, this.autoCloseDelay * 1000);
+        }, this.autoClose * 1000);
       }
     },
     close: function close() {
@@ -13566,11 +13565,12 @@ var _default = {
     log: function log() {
       console.log('测试');
     },
+    //没啥用
     onClickClose: function onClickClose() {
       this.close();
 
       if (this.closeButton && typeof this.closeButton.callback === 'function') {
-        this.closeButton.callback(this); //this === toast实例，可利用这个功能将toast组件中的函数等回传
+        this.closeButton.callback(this); //this === toast实例，可利用这个功能将toast组件中的函数等回传？？？？？
       }
     }
   }
@@ -24825,7 +24825,6 @@ _vue.default.component('g-toast', _toast.default);
 
 _vue.default.use(_plugin.default);
 
-var h = _vue.default;
 new _vue.default({
   el: '#app',
   data: {
@@ -24868,8 +24867,7 @@ new _vue.default({
             console.log('他说已经充值智商了');
           }
         },
-        autoClose: false,
-        autoCloseDelay: 3
+        autoClose: 3
       }); //一般不支持message是html
     }
   }
@@ -25102,7 +25100,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11773" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "3704" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

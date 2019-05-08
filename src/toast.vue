@@ -3,12 +3,12 @@
         <div class="toast" ref="toast">
             <div class="message">
                 <slot v-if="!enableHtml"></slot>
-                <div v-else v-html="$slots.default[0]"></div>
+                <div v-else v-html="$slots.default[0]"></div>  <!--代替slot，因为若是slot，无法读取html并挂载到页面上-->
             </div>
             <div class="line" ref="line"></div>    <!--这根线一开始想用span的before伪元素来做，但不好调位置-->
             <span class="close" v-if="closeButton" @click="onClickClose">
                 {{closeButton.text}}
-            </span>                <!--代替slot，因为若是slot，无法读取html并挂载到页面上-->
+            </span>
         </div>
     </div>
 </template>
@@ -17,12 +17,11 @@
         name: 'GuluToast',
         props: {
             autoClose: {
-                type: Boolean,
-                default: true
-            },
-            autoCloseDelay: {
-                type: Number,
-                default: 50        //浅拷贝，不用写成函数返回的形式
+                type: [Boolean, Number],
+                default: 5,
+                validator (value) {
+                    return value === false || typeof value === 'number';
+                }        //浅拷贝，不用写成函数返回的形式
             },
             closeButton: {
                 type: Object,
@@ -46,22 +45,22 @@
                 }
             }
         },
-        created () {
-        },
         mounted () {
+            console.log(this.$el.outerHTML)
             this.updateStyles()
             this.execAutoClose()
         },
         computed: {
             toastClasses () {
                 return {
-                    [`position-${this.position}`]: true
+                    [`position-${this.position}`]: true     //注意中括号
                 }
             }
         },
         methods: {
             updateStyles () {
                 this.$nextTick(() => {
+                    consolg.log(this.$refs.line)
                     this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
                 })
             },
@@ -69,7 +68,7 @@
                 if (this.autoClose) {
                     setTimeout(() => {
                         this.close()
-                    }, this.autoCloseDelay * 1000)
+                    }, this.autoClose * 1000)
                 }
             },
             close () {
@@ -79,11 +78,11 @@
             },
             log () {
                 console.log('测试')
-            },
+            },//没啥用
             onClickClose () {
                 this.close()
                 if (this.closeButton && typeof this.closeButton.callback === 'function') {
-                    this.closeButton.callback(this)//this === toast实例，可利用这个功能将toast组件中的函数等回传
+                    this.closeButton.callback(this)//this === toast实例，可利用这个功能将toast组件中的函数等回传（这里没用到）
                 }
             }
         }
@@ -93,9 +92,9 @@
     $font-size: 14px;
     $toast-min-height: 40px;
     $toast-bg: rgba(0, 0, 0, 0.75);
-    @keyframes slide-up {
-        0% {opacity: 0; transform: translateY(100%);}
-        100% {opacity: 1;transform: translateY(0%);}
+    @keyframes slide-up {   /*注意，这个对应的是bottom*/
+        0% {transform: translateY(100%);}
+        100% {transform: translateY(0%);}
     }
     @keyframes slide-down {
         0% {opacity: 0; transform: translateY(-100%);}
@@ -135,9 +134,10 @@
         }
     }
     .toast {
-        font-size: $font-size; min-height: $toast-min-height; line-height: 1.8;     /*line-height有什么用？？？？*/
+        font-size: $font-size; min-height: $toast-min-height; line-height: 1.8;     /*line-height 规定了相邻两行字基线的距离*/
         display: flex;
-        color: white; align-items: center; background: $toast-bg; border-radius: 4px;      /*解决border内的居中问题，比较简单的是用flex，以及align-items、justify-content*/
+        color: white; align-items: center; background: $toast-bg; border-radius: 4px;
+        /*解决border内的居中问题，比较简单的是用flex，以及align-items、justify-content*/
         box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.50); padding: 0 16px;
         .message {
             padding: 8px 0;
