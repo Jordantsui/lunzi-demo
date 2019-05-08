@@ -1110,7 +1110,7 @@
   font-size: 14px;
   min-height: 40px;
   line-height: 1.8;
-  /*line-height有什么用？？？？*/
+  /*line-height 规定了相邻两行字基线的距离*/
   display: flex;
   color: white;
   align-items: center;
@@ -1131,4 +1131,31 @@
   height: 100%;
   border-left: 1px solid #666;
   margin-left: 16px;
+}
+.tabs {
+}
+@charset "UTF-8";
+.tabs-head[data-v-f7f78f] {
+  display: flex;
+  /*加了这一行变成横排*/
+  height: 40px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 1px solid red;
+}
+.tabs-head > .actions-wrapper[data-v-f7f78f] {
+  margin-left: auto;
+  /*把设置按钮移到右边*/
+}
+.tabs-body {
+}
+.tabs-item[data-v-5a4fb4] {
+  flex-shrink: 0;
+  padding: 0 1em;
+}
+.tabs-item.active[data-v-5a4fb4] {
+  background: red;
+}
+.tabs-pane.active[data-v-9fcaef] {
+  background: red;
 }

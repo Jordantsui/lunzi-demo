@@ -58,6 +58,10 @@ new Vue({
 
     },
     methods: {
+        yyy(data){
+            console.log('yyy')
+            console.log(data)
+        },
         inputChange(e) {
             console.log(e)
         },//e代表了 change 的内容！！！（需要按一次回车，才算一次change）（input组件）
