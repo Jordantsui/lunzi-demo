@@ -1140,14 +1140,14 @@
   /*加了这一行变成横排*/
   height: 40px;
   justify-content: flex-start;
-  border: 1px solid red;
   position: relative;
 }
 .tabs-head > .line[data-v-f7f78f] {
   position: absolute;
   bottom: 0;
   border-bottom: 1px solid blue;
-  width: 100px;
+  transition: all 350ms;
+  /*一开始写的是   left 1s,width 1s  */
 }
 .tabs-head > .actions-wrapper[data-v-f7f78f] {
   margin-left: auto;
