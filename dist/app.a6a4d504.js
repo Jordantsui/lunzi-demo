@@ -13751,8 +13751,21 @@ var _default = {
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     // this.$emit('update:selected', '这是 this $emit 出来的数据')
-    this.eventBus.$emit('update:selected', this.selected); // // this.$emit('update:selected', 'xxx')
+    //this.eventBus.$emit('update:selected', this.selected)
+    // // this.$emit('update:selected', 'xxx')
+    this.$children.forEach(function (vm) {
+      if (vm.$options.name === 'GuluTabsHead') {
+        vm.$children.forEach(function (childVm) {
+          if (childVm.$options.name === 'GuluTabsItem' && childVm.name === _this.selected) {
+            _this.eventBus.$emit('update:selected', _this.selected, childVm); //如果要实现点击tabs-item时，蓝线随之而动，那么需要在触发事件时，除了要传递this.selected，还要将对应的元素childVm传过去
+
+          }
+        });
+      }
+    });
   }
 };
 exports.default = _default;
@@ -13818,11 +13831,14 @@ exports.default = void 0;
 //
 //
 //
+//
 var _default = {
   name: 'GuluTabsHead',
   inject: ['eventBus'],
   created: function created() {
-    this.$emit('update:selected', 'tabs-head 抛出的数据');
+    this.eventBus.$on('update:selected', function (item, vm) {
+      console.log(item);
+    });
   }
 };
 exports.default = _default;
@@ -13843,6 +13859,8 @@ exports.default = _default;
     { staticClass: "tabs-head" },
     [
       _vm._t("default"),
+      _vm._v(" "),
+      _c("div", { ref: "line", staticClass: "line" }),
       _vm._v(" "),
       _c("div", { staticClass: "actions-wrapper" }, [_vm._t("actions")], 2)
     ],
@@ -13994,7 +14012,7 @@ var _default = {
   },
   methods: {
     xxx: function xxx() {
-      this.eventBus.$emit('update:selected', this.name);
+      this.eventBus.$emit('update:selected', this.name, this);
     }
   }
 };

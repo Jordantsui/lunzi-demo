@@ -32,8 +32,19 @@
         },
         mounted () {
             // this.$emit('update:selected', '这是 this $emit 出来的数据')
-            this.eventBus.$emit('update:selected', this.selected)
+            //this.eventBus.$emit('update:selected', this.selected)
             // // this.$emit('update:selected', 'xxx')
+            this.$children.forEach((vm) => {
+                if (vm.$options.name === 'GuluTabsHead') {
+                    vm.$children.forEach((childVm) => {
+                        if (childVm.$options.name === 'GuluTabsItem'
+                            && childVm.name === this.selected) {
+                            this.eventBus.$emit('update:selected', this.selected, childVm)
+                            //如果要实现点击tabs-item时，蓝线随之而动，那么需要在触发事件时，除了要传递this.selected，还要将对应的元素childVm传过去
+                        }
+                    })
+                }
+            })
         }
     }
 </script>

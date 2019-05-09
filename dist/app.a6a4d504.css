@@ -1141,6 +1141,13 @@
   height: 40px;
   justify-content: flex-start;
   border: 1px solid red;
+  position: relative;
+}
+.tabs-head > .line[data-v-f7f78f] {
+  position: absolute;
+  bottom: 0;
+  border-bottom: 1px solid blue;
+  width: 100px;
 }
 .tabs-head > .actions-wrapper[data-v-f7f78f] {
   margin-left: auto;
@@ -1151,14 +1158,14 @@
 .tabs-item[data-v-5a4fb4] {
   flex-shrink: 0;
   padding: 0 1em;
-  border: 1px solid green;
   height: 100%;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 .tabs-item.active[data-v-5a4fb4] {
-  background: red;
+  color: blue;
+  font-weight: bold;
 }
 .tabs-pane.active[data-v-9fcaef] {
   background: red;
