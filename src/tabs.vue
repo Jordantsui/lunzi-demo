@@ -34,6 +34,12 @@
             // this.$emit('update:selected', '这是 this $emit 出来的数据')
             //this.eventBus.$emit('update:selected', this.selected)
             // // this.$emit('update:selected', 'xxx')
+            if (this.$children.length === 0) {
+                console && console.warn &&     //有的浏览器没有 console.warn
+                console.warn('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件')
+                //如果要报错，则是 throw new Error('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件')
+                //但是由于在这里报错是异步，chai监听不到，所以没用报错
+            }
             this.$children.forEach((vm) => {
                 if (vm.$options.name === 'GuluTabsHead') {
                     vm.$children.forEach((childVm) => {
