@@ -1140,7 +1140,6 @@
   /*加了这一行变成横排*/
   height: 40px;
   justify-content: flex-start;
-  align-items: center;
   border: 1px solid red;
 }
 .tabs-head > .actions-wrapper[data-v-f7f78f] {
@@ -1152,6 +1151,11 @@
 .tabs-item[data-v-5a4fb4] {
   flex-shrink: 0;
   padding: 0 1em;
+  border: 1px solid green;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 .tabs-item.active[data-v-5a4fb4] {
   background: red;

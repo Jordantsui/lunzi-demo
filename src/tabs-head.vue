@@ -21,7 +21,6 @@
         display: flex;       /*加了这一行变成横排*/
         height: $tab-height;
         justify-content: flex-start;
-        align-items: center;
         border: 1px solid red;
         > .actions-wrapper {
             margin-left: auto;      /*把设置按钮移到右边*/
