@@ -14,7 +14,7 @@
         mounted () {
             this.eventBus.$on('update:selected', (item, vm) => {
                 let {width, height, top, left} = vm.$el.getBoundingClientRect()
-                this.$refs.line.style.width = `${width}px`
+                this.$refs.line.style.width = `${width}px`       //注意这里，vm.$el 就是tabs-item对应的元素，获取宽高可以，top和 left也能获取到（tabs-item不是绝对定位）
                 this.$refs.line.style.left = `${left}px`
             })
         }

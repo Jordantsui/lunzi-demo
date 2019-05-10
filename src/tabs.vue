@@ -12,7 +12,7 @@
                 type: String,
                 required: true
             },
-            direction: {
+            direction: {    //没用到
                 type: String,
                 default: 'horizontal',
                 validator (value) {
@@ -33,7 +33,6 @@
         mounted () {
             // this.$emit('update:selected', '这是 this $emit 出来的数据')
             //this.eventBus.$emit('update:selected', this.selected)
-            // // this.$emit('update:selected', 'xxx')
             if (this.$children.length === 0) {
                 console && console.warn &&     //有的浏览器没有 console.warn
                 console.warn('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件')

@@ -16,7 +16,7 @@
             disabled: {
                 type: Boolean,
                 default: false
-            },
+            },//在Tabs组件中，disabled 写在index.html里
             name: {
                 type: String | Number,
                 required: true
@@ -41,7 +41,7 @@
             onClick () {
                 if (this.disabled) { return }    //注意这一句，禁用的灵魂
                 this.eventBus && this.eventBus.$emit('update:selected', this.name, this)
-                this.$emit('click', this)
+                this.$emit('click', this)    //添加'接受 disabled 属性'测试用例时，添加的这一步
             }
         }
     }
@@ -55,14 +55,14 @@
         height: 100%;
         display: flex;
         align-items: center;
-        cursor: pointer;
+        cursor: pointer;    /*鼠标悬浮在此元素之上时，变成手*/
         &.active {
             color: $blue;
             font-weight: bold;
         }
         &.disabled {
             color: $disabled-text-color;
-            cursor: not-allowed;
+            cursor: not-allowed;     /*鼠标悬浮在此元素之上时，变成禁用符号*/
         }
     }
 </style>

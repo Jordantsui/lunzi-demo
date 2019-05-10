@@ -46,7 +46,7 @@
             }
         },
         mounted () {
-            console.log(this.$el.outerHTML)
+            //console.log(this.$el.outerHTML)
             this.updateStyles()
             this.execAutoClose()
         },
@@ -60,7 +60,7 @@
         methods: {
             updateStyles () {
                 this.$nextTick(() => {
-                    consolg.log(this.$refs.line)
+                    //console.log(this.$refs.line)
                     this.$refs.line.style.height = `${this.$refs.toast.getBoundingClientRect().height}px`
                 })
             },

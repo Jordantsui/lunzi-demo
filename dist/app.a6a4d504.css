@@ -1160,6 +1160,7 @@
 }
 .tabs-body {
 }
+@charset "UTF-8";
 .tabs-item[data-v-5a4fb4] {
   flex-shrink: 0;
   padding: 0 1em;
@@ -1167,6 +1168,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  /*鼠标悬浮在此元素之上时，变成手*/
 }
 .tabs-item.active[data-v-5a4fb4] {
   color: blue;
@@ -1174,7 +1176,21 @@
 }
 .tabs-item.disabled[data-v-5a4fb4] {
   color: grey;
+  cursor: not-allowed;
+  /*鼠标悬浮在此元素之上时，变成禁用符号*/
 }
 .tabs-pane[data-v-9fcaef] {
   padding: 1em;
+}
+.popover[data-v-ed33b6] {
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+.popover .content-wrapper[data-v-ed33b6] {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  border: 1px solid red;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }

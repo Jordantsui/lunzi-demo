@@ -58,18 +58,30 @@
     }
 </style>
 
-<div id="app">
-    <g-tabs>
-        <div>hi</div>
-    </g-tabs>
-<!--    <g-tabs :selected.sync="selectedTab" >-->
+<div id="app"  style="padding-top: 100px; padding-left: 100px;">
+    <g-popover>
+        <template slot="content">
+            <div>popover内容</div>
+        </template>
+        <button>点我</button>
+    </g-popover>
+    <g-popover>
+        <template slot="content">
+            <div>popover内容</div>
+        </template>
+        <button>点我</button>
+    </g-popover>
+    <hr>
+    <hr>
     <g-tabs :selected.sync="selectedTab" @update:selected="yyy">
+        <!--由于组件中没有冒泡，所以点击item并没有触发g-tabs的update:selected事件，这里的 yyy 方法也没用-->
         <g-tabs-head>
             <template slot="actions">
                 <button>设置</button>
             </template>
             <g-tabs-item name="woman" disabled>
                 <g-icon name="settings"></g-icon>美女
+                <!--g-icon 实际上没有用-->
             </g-tabs-item>
             <g-tabs-item name="finance">
                 财经

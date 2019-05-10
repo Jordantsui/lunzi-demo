@@ -21,27 +21,6 @@ describe('Tabs', () => {
         expect(Tabs).to.exist
     })
 
-/*    it('子组件只能是tabs-head和tabs-body', () => {
-
-        const div = document.createElement('div')
-        document.body.appendChild(div)
-        div.innerHTML = `
-        <g-tabs>
-          <div>hi</div>
-        </g-tabs>>`
-        expect(()=>{
-            const vm=new Vue({
-                el:div
-            })
-        }).to.throw()  //期待报错
-        //下面是试验，证明异步报错，无法监视到
-        //如果没有 setTimeout，则能监视到；加上 setTimeout，监视不到
-        expect(()=>{
-            setTimeout(()=>{
-                throw new Error('hi')
-            },0)
-        }).to.throw()
-    })*/
 
     it('接受 selected 属性', (done) => {
 

@@ -13531,7 +13531,7 @@ var _default = {
     }
   },
   mounted: function mounted() {
-    console.log(this.$el.outerHTML);
+    //console.log(this.$el.outerHTML)
     this.updateStyles();
     this.execAutoClose();
   },
@@ -13545,7 +13545,7 @@ var _default = {
       var _this = this;
 
       this.$nextTick(function () {
-        consolg.log(_this.$refs.line);
+        //console.log(this.$refs.line)
         _this.$refs.line.style.height = "".concat(_this.$refs.toast.getBoundingClientRect().height, "px");
       });
     },
@@ -13733,6 +13733,7 @@ var _default = {
       required: true
     },
     direction: {
+      //没用到
       type: String,
       default: 'horizontal',
       validator: function validator(value) {
@@ -13755,7 +13756,6 @@ var _default = {
 
     // this.$emit('update:selected', '这是 this $emit 出来的数据')
     //this.eventBus.$emit('update:selected', this.selected)
-    // // this.$emit('update:selected', 'xxx')
     if (this.$children.length === 0) {
       console && console.warn && //有的浏览器没有 console.warn
       console.warn('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件'); //如果要报错，则是 throw new Error('tabs的子组件应该是tabs-head和tabs-nav，但你没有写子组件')
@@ -13851,7 +13851,8 @@ var _default = {
           top = _vm$$el$getBoundingCl.top,
           left = _vm$$el$getBoundingCl.left;
 
-      _this.$refs.line.style.width = "".concat(width, "px");
+      _this.$refs.line.style.width = "".concat(width, "px"); //注意这里，vm.$el 就是tabs-item对应的元素，获取宽高可以，top和 left也能获取到（tabs-item不是绝对定位）
+
       _this.$refs.line.style.left = "".concat(left, "px");
     });
   }
@@ -14006,6 +14007,7 @@ var _default = {
       type: Boolean,
       default: false
     },
+    //在Tabs组件中，disabled 写在index.html里
     name: {
       type: String | Number,
       required: true
@@ -14022,9 +14024,11 @@ var _default = {
   created: function created() {
     var _this = this;
 
-    this.eventBus.$on('update:selected', function (name) {
-      _this.active = name === _this.name;
-    });
+    if (this.eventBus) {
+      this.eventBus.$on('update:selected', function (name) {
+        _this.active = name === _this.name;
+      });
+    }
   },
   methods: {
     onClick: function onClick() {
@@ -14033,7 +14037,8 @@ var _default = {
       } //注意这一句，禁用的灵魂
 
 
-      this.eventBus.$emit('update:selected', this.name, this);
+      this.eventBus && this.eventBus.$emit('update:selected', this.name, this);
+      this.$emit('click', this); //添加'接受 disabled 属性'测试用例时，添加的这一步
     }
   }
 };
@@ -14055,6 +14060,7 @@ exports.default = _default;
     {
       staticClass: "tabs-item",
       class: _vm.classes,
+      attrs: { "data-name": _vm.name },
       on: { click: _vm.onClick }
     },
     [_vm._t("default")],
@@ -14180,6 +14186,94 @@ render._withStripped = true
             api.createRecord('$9fcaef', $9fcaef);
           } else {
             api.reload('$9fcaef', $9fcaef);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
+},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/popover.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: "GuluPopover",
+  data: function data() {
+    return {
+      visible: false
+    };
+  },
+  methods: {
+    xxx: function xxx() {
+      this.visible = !this.visible;
+    }
+  }
+};
+exports.default = _default;
+        var $ed33b6 = exports.default || module.exports;
+      
+      if (typeof $ed33b6 === 'function') {
+        $ed33b6 = $ed33b6.options;
+      }
+    
+        /* template */
+        Object.assign($ed33b6, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "popover", on: { click: _vm.xxx } },
+    [
+      _vm.visible
+        ? _c("div", { staticClass: "content-wrapper" }, [_vm._t("content")], 2)
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: "data-v-ed33b6",
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$ed33b6', $ed33b6);
+          } else {
+            api.reload('$ed33b6', $ed33b6);
           }
         }
 
@@ -25288,6 +25382,8 @@ var _tabsItem = _interopRequireDefault(require("./tabs-item"));
 
 var _tabsPane = _interopRequireDefault(require("./tabs-pane"));
 
+var _popover = _interopRequireDefault(require("./popover"));
+
 var _chai = _interopRequireDefault(require("chai"));
 
 var _chaiSpies = _interopRequireDefault(require("chai-spies"));
@@ -25328,6 +25424,8 @@ _vue.default.component('g-tabs-item', _tabsItem.default);
 
 _vue.default.component('g-tabs-pane', _tabsPane.default);
 
+_vue.default.component('g-popover', _popover.default);
+
 _vue.default.use(_plugin.default);
 
 new _vue.default({
@@ -25350,9 +25448,8 @@ new _vue.default({
                 enableHtml: false*/
   },
   methods: {
-    yyy: function yyy(data) {
+    yyy: function yyy() {
       console.log('yyy');
-      console.log(data);
     },
     inputChange: function inputChange(e) {
       console.log(e);
@@ -25582,7 +25679,7 @@ try {
     console.error(error.message);
   });
 }
-},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./row":"src/row.vue","./col":"src/col.vue","./layout":"src/layout.vue","./header":"src/header.vue","./sider":"src/sider.vue","./content":"src/content.vue","./footer":"src/footer.vue","./toast":"src/toast.vue","./plugin":"src/plugin.js","./tabs":"src/tabs.vue","./tabs-head":"src/tabs-head.vue","./tabs-body":"src/tabs-body.vue","./tabs-item":"src/tabs-item.vue","./tabs-pane":"src/tabs-pane.vue","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","./button":"src/button.vue","./icon":"src/icon.vue","./button-group":"src/button-group.vue","./input":"src/input.vue","./row":"src/row.vue","./col":"src/col.vue","./layout":"src/layout.vue","./header":"src/header.vue","./sider":"src/sider.vue","./content":"src/content.vue","./footer":"src/footer.vue","./toast":"src/toast.vue","./plugin":"src/plugin.js","./tabs":"src/tabs.vue","./tabs-head":"src/tabs-head.vue","./tabs-body":"src/tabs-body.vue","./tabs-item":"src/tabs-item.vue","./tabs-pane":"src/tabs-pane.vue","./popover":"src/popover.vue","chai":"node_modules/chai/index.js","chai-spies":"node_modules/chai-spies/chai-spies.js"}],"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25610,7 +25707,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "1643" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13647" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
