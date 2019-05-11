@@ -14212,6 +14212,9 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
 var _default = {
   name: "GuluPopover",
   data: function data() {
@@ -14221,7 +14224,34 @@ var _default = {
   },
   methods: {
     xxx: function xxx() {
+      var _this = this;
+
       this.visible = !this.visible;
+
+      if (this.visible === true) {
+        this.$nextTick(function () {
+          document.body.appendChild(_this.$refs.contentWrapper);
+
+          var _this$$refs$triggerWr = _this.$refs.triggerWrapper.getBoundingClientRect(),
+              width = _this$$refs$triggerWr.width,
+              height = _this$$refs$triggerWr.height,
+              top = _this$$refs$triggerWr.top,
+              left = _this$$refs$triggerWr.left; //getBoundingClientRect()获取的位置是相对于视口而言的，不是相对于整个页面
+
+
+          _this.$refs.contentWrapper.style.left = left + window.scrollX + 'px';
+          _this.$refs.contentWrapper.style.top = top + window.scrollY + 'px';
+
+          var eventHandler = function eventHandler() {
+            _this.visible = false;
+            document.removeEventListener('click', eventHandler);
+          };
+
+          document.addEventListener('click', eventHandler);
+        });
+      } else {
+        console.log('vm 隐藏 popover');
+      }
     }
   }
 };
@@ -14240,15 +14270,27 @@ exports.default = _default;
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "popover", on: { click: _vm.xxx } },
+    {
+      staticClass: "popover",
+      on: {
+        click: function($event) {
+          $event.stopPropagation()
+          return _vm.xxx($event)
+        }
+      }
+    },
     [
       _vm.visible
-        ? _c("div", { staticClass: "content-wrapper" }, [_vm._t("content")], 2)
+        ? _c(
+            "div",
+            { ref: "contentWrapper", staticClass: "content-wrapper" },
+            [_vm._t("content")],
+            2
+          )
         : _vm._e(),
       _vm._v(" "),
-      _vm._t("default")
-    ],
-    2
+      _c("span", { ref: "triggerWrapper" }, [_vm._t("default")], 2)
+    ]
   )
 }
 var staticRenderFns = []
@@ -25707,7 +25749,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13647" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "10299" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
