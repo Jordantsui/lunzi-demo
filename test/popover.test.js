@@ -50,7 +50,7 @@ describe('Popover', () => {
         })
         setTimeout(() => {
             let event = new Event('mouseenter');
-            vm.$el.dispatchEvent(event)
+            vm.$el.dispatchEvent(event)      //注意这种方法实现mouseenter
             vm.$nextTick(() => {
                 const {contentWrapper} = vm.$refs.a.$refs
                 expect(contentWrapper).to.exist
