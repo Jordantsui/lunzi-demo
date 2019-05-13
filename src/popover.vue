@@ -158,10 +158,13 @@
             }
             &::before {
                 border-top-color: black;
+                border-bottom: none;     /*解决使用enterleave触发时，鼠标靠近三角形，popover抖动的问题*/
+                /*鼠标抖动是因为鼠标靠近三角形时，相当于离开按钮、接近body了*/
                 top: 100%;
             }
             &::after {
                 border-top-color: white;
+                border-bottom: none;
                 top: calc(100% - 1px);
             }
         }
@@ -172,9 +175,11 @@
             }
             &::before {
                 border-bottom-color: black;
+                border-top: none;
                 bottom: 100%;
             }
             &::after {
+                border-top: none;
                 border-bottom-color: white;
                 bottom: calc(100% - 1px);
             }
@@ -188,10 +193,12 @@
             }
             &::before {
                 border-left-color: black;
+                border-right: none;
                 left: 100%;
             }
             &::after {
                 border-left-color: white;
+                border-right: none;
                 left: calc(100% - 1px);
             }
         }
@@ -203,10 +210,12 @@
             }
             &::before {
                 border-right-color: black;
+                border-left: none;
                 right: 100%;
             }
             &::after {
                 border-right-color: white;
+                border-left: none;
                 right: calc(100% - 1px);
             }
         }
