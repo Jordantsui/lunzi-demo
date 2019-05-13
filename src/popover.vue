@@ -2,7 +2,8 @@
     <div class="popover" ref="popover">
         <div ref="contentWrapper" class="content-wrapper" v-if="visible"
              :class="{[`position-${position}`]:true}">
-            <slot name="content"></slot>
+            <slot name="content" :close="close"></slot>
+            <!--close用于在popover中加关闭按钮-->
         </div>
         <span ref="triggerWrapper" style="display:inline-block;">
             <slot></slot>
