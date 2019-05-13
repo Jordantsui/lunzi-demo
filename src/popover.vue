@@ -1,5 +1,5 @@
 <template>
-    <div class="popover" @click="onClick" ref="popover">
+    <div class="popover" ref="popover">
         <div ref="contentWrapper" class="content-wrapper" v-if="visible"
              :class="{[`position-${position}`]:true}">
             <slot name="content"></slot>
@@ -14,7 +14,41 @@
     export default {
         name: "GuluPopover",
         data () {
-            return {visible: false}
+            return {
+                visible: false,
+            }
+        },
+        mounted () {
+            if (this.trigger === 'click') {//由于要有多种触发方式，所以不能用 @click='onClick' 方法
+                this.$refs.popover.addEventListener('click', this.onClick)
+            } else {     //由于 click 和 mouseenter 这两种方法后续处理有差异，最好在这分开，用两种不同的处理方法
+                this.$refs.popover.addEventListener('mouseenter', this.open)
+                this.$refs.popover.addEventListener('mouseleave', this.close)
+            }
+        },
+        destroyed () {
+            if (this.trigger === 'click') {
+                this.$refs.popover.removeEventListener('click', this.onClick)
+            } else {
+                this.$refs.popover.removeEventListener('mouseenter', this.open)
+                this.$refs.popover.removeEventListener('mouseleave', this.close)
+            }
+        },
+        computed: {
+            openEvent () {
+                if (this.trigger === 'click') {
+                    return 'click'
+                } else {
+                    return 'mouseenter'
+                }
+            },
+            closeEvent () {
+                if (this.trigger === 'click') {
+                    return 'click'
+                } else {
+                    return 'mouseleave'
+                }
+            }
         },
         props: {
             position: {
@@ -22,6 +56,13 @@
                 default: 'top',
                 validator (value) {
                     return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+                }
+            },
+            trigger: {
+                type: String,
+                default: 'click',
+                validator (value) {
+                    return ['click', 'hover'].indexOf(value) >= 0
                 }
             }
         },
@@ -33,24 +74,22 @@
                 this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'*/
                 const {contentWrapper, triggerWrapper} = this.$refs
                 document.body.appendChild(contentWrapper)
-                let {width, height, top, left} = triggerWrapper.getBoundingClientRect()
-                if (this.position === 'top') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + window.scrollY + 'px'
-                } else if (this.position === 'bottom') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    contentWrapper.style.top = top + height + window.scrollY + 'px'
-                } else if (this.position === 'left') {
-                    contentWrapper.style.left = left + window.scrollX + 'px'
-                    let {height: height2} = contentWrapper.getBoundingClientRect()
-                    contentWrapper.style.top = top + window.scrollY +
-                        (height - height2) / 2 + 'px'               //popover组件与按钮垂直对齐
-                } else if (this.position === 'right') {
-                    contentWrapper.style.left = left + window.scrollX + width + 'px'
-                    let {height: height2} = contentWrapper.getBoundingClientRect()
-                    contentWrapper.style.top = top + window.scrollY +
-                        (height - height2) / 2 + 'px'
+                const {width, height, top, left} = triggerWrapper.getBoundingClientRect()
+                const {height: height2} = contentWrapper.getBoundingClientRect()
+                let positions = {
+                    top: {top: top + window.scrollY, left: left + window.scrollX,},
+                    bottom: {top: top + height + window.scrollY, left: left + window.scrollX},
+                    left: {
+                        top: top + window.scrollY + (height - height2) / 2,     //popover与按钮垂直对齐
+                        left: left + window.scrollX
+                    },
+                    right: {
+                        top: top + window.scrollY + (height - height2) / 2,
+                        left: left + window.scrollX + width
+                    },
                 }
+                contentWrapper.style.left = positions[this.position].left + 'px'
+                contentWrapper.style.top = positions[this.position].top + 'px'
             },
             onClickDocument (e) {//注意，这里必须写成function函数的形式，如果写成箭头函数，则函数内部没有this
                 if (this.$refs.popover &&

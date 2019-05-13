@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43caff91-6e11-40d8-beb3-445519c22ab2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/popover.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/popover.vue" afterDir="false" />
     </list>
@@ -31,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/popover.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="46" column="86" selection-start-line="46" selection-start-column="86" selection-end-line="46" selection-end-column="86" />
+            <state relative-caret-position="209">
+              <caret line="23" column="79" selection-start-line="23" selection-start-column="79" selection-end-line="23" selection-end-column="79" />
               <folding>
                 <element signature="n#style#0;n#span#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -43,10 +44,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+            <state relative-caret-position="180">
+              <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
               <folding>
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#g-layout#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
@@ -198,7 +201,7 @@
       <workItem from="1557475517010" duration="10534000" />
       <workItem from="1557495465548" duration="3159000" />
       <workItem from="1557556319949" duration="4763000" />
-      <workItem from="1557729284688" duration="2488000" />
+      <workItem from="1557729284688" duration="4424000" />
     </task>
     <task id="LOCAL-00001" summary="npm install vue">
       <created>1555670646190</created>
@@ -239,7 +242,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="194071000" />
+    <option name="totallyTimeSpent" value="196007000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -547,10 +550,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="83" column="35" selection-start-line="83" selection-start-column="35" selection-end-line="83" selection-end-column="35" />
+        <state relative-caret-position="180">
+          <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
           <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#g-layout#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -558,8 +563,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/popover.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="46" column="86" selection-start-line="46" selection-start-column="86" selection-end-line="46" selection-end-column="86" />
+        <state relative-caret-position="209">
+          <caret line="23" column="79" selection-start-line="23" selection-start-column="79" selection-end-line="23" selection-end-column="79" />
           <folding>
             <element signature="n#style#0;n#span#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
