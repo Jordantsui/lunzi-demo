@@ -1182,6 +1182,7 @@
 .tabs-pane[data-v-9fcaef] {
   padding: 1em;
 }
+@charset "UTF-8";
 .popover[data-v-ed33b6] {
   display: inline-block;
   vertical-align: top;
@@ -1189,7 +1190,94 @@
 }
 .content-wrapper[data-v-ed33b6] {
   position: absolute;
-  border: 1px solid red;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  /*box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);*/
+  border: 1px solid #333;
+  border-radius: 4px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+  /*解决所加伪元素没有border-shadow的问题*/
+  background: white;
+  /*解决border-shadow问题时，字也会有shadow，所以加background*/
+  padding: 0.5em 1em;
+  max-width: 20em;
+  /*字再多，最大宽度也只有这么多*/
+  word-break: break-all;
+  /*防止一个单词过长，超过max-width（英文环境下慎用）*/
+}
+.content-wrapper[data-v-ed33b6]::before, .content-wrapper[data-v-ed33b6]::after {
+  content: "";
+  display: block;
+  border: 10px solid transparent;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.content-wrapper.position-top[data-v-ed33b6] {
   transform: translateY(-100%);
+  margin-top: -10px;
+}
+.content-wrapper.position-top[data-v-ed33b6]::before, .content-wrapper.position-top[data-v-ed33b6]::after {
+  left: 10px;
+}
+.content-wrapper.position-top[data-v-ed33b6]::before {
+  border-top-color: black;
+  border-bottom: none;
+  /*解决使用enterleave触发时，鼠标靠近三角形，popover抖动的问题*/
+  /*鼠标抖动是因为鼠标靠近三角形时，相当于离开按钮、接近body了*/
+  top: 100%;
+}
+.content-wrapper.position-top[data-v-ed33b6]::after {
+  border-top-color: white;
+  border-bottom: none;
+  top: calc(100% - 1px);
+}
+.content-wrapper.position-bottom[data-v-ed33b6] {
+  margin-top: 10px;
+}
+.content-wrapper.position-bottom[data-v-ed33b6]::before, .content-wrapper.position-bottom[data-v-ed33b6]::after {
+  left: 10px;
+}
+.content-wrapper.position-bottom[data-v-ed33b6]::before {
+  border-bottom-color: black;
+  border-top: none;
+  bottom: 100%;
+}
+.content-wrapper.position-bottom[data-v-ed33b6]::after {
+  border-top: none;
+  border-bottom-color: white;
+  bottom: calc(100% - 1px);
+}
+.content-wrapper.position-left[data-v-ed33b6] {
+  transform: translateX(-100%);
+  margin-left: -10px;
+}
+.content-wrapper.position-left[data-v-ed33b6]::before, .content-wrapper.position-left[data-v-ed33b6]::after {
+  transform: translateY(-50%);
+  top: 50%;
+}
+.content-wrapper.position-left[data-v-ed33b6]::before {
+  border-left-color: black;
+  border-right: none;
+  left: 100%;
+}
+.content-wrapper.position-left[data-v-ed33b6]::after {
+  border-left-color: white;
+  border-right: none;
+  left: calc(100% - 1px);
+}
+.content-wrapper.position-right[data-v-ed33b6] {
+  margin-left: 10px;
+}
+.content-wrapper.position-right[data-v-ed33b6]::before, .content-wrapper.position-right[data-v-ed33b6]::after {
+  transform: translateY(-50%);
+  top: 50%;
+}
+.content-wrapper.position-right[data-v-ed33b6]::before {
+  border-right-color: black;
+  border-left: none;
+  right: 100%;
+}
+.content-wrapper.position-right[data-v-ed33b6]::after {
+  border-right-color: white;
+  border-left: none;
+  right: calc(100% - 1px);
 }
