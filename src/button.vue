@@ -2,7 +2,7 @@
     <button class="g-button frank2" :class="{[`icon-${iconPosition}`]: true}"  @click="$emit('click')">
         <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
         <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content">
+        <div class="g-button-content">
             <slot></slot>
         </div>
         <!--slot上不能加class-->
@@ -33,37 +33,42 @@
     }
 </script>
 <style lang="scss" scoped>
+    $font-size: 14px;
+    $button-height: 32px;
+    $button-bg: white;
+    $button-active-bg: #eee;
+    $border-radius: 4px;
+    $color: #333;
+    $border-color: #999;
+    $border-color-hover: #666;
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-    .g-button {
+/*    .g-button {
         font-size: var(--font-size);
         height: var(--button-height);
         padding: 0 1em;
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
-        background: var(--button-bg);
+        background: var(--button-bg);*/
+    .g-button { font-size: $font-size; height: $button-height; padding: 0 1em;/*将css变量写法改为scss写法，否则用vuepress时会失效*/
+        border-radius: $border-radius; border: 1px solid $border-color;
+        background: $button-bg;
         display: inline-flex; justify-content: center; align-items: center;
         /*上面这两个用于按钮内部的元素居中，vertical-align 用于按钮与外部的东西对齐*/
         /*加入 display: inline 之后，会出现两个按钮上下不对称的情况，此时加上 vertical-align: middle 可破之*/
         vertical-align: middle;
-        &:hover {
-            border-color: var(--border-color-hover);
-        }
-        &:active {
-            background-color: var(--button-active-bg);
-        }
+        &:hover { border-color: $border-color-hover; }
+        &:active { background-color: $button-active-bg; }
         &:focus {
             outline: none;
         }
-        > .content { order: 2; }     /*  >  这个符号表示递进关系*/
+        > .g-button-content { order: 2; }     /*  >  这个符号表示递进关系*/
         /*order 是在使用flex布局之后，用以改变元素顺序的，默认是0*/
         > .icon { order: 1; margin-right: .1em; }
         &.icon-right {
-            > .content {
-                order: 1;
-            }
+            > .g-button-content { order: 1; }
 
             > .icon {
                 order: 2;

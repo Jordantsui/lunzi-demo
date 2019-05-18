@@ -23,6 +23,7 @@ describe('Collapse', () => {
           <g-collapse-item title="标题1" name="1"><span id="content-1">1</span></g-collapse-item>
           <g-collapse-item title="标题2" name="2"><span id="content-2">2</span></g-collapse-item>
           <g-collapse-item title="标题3" name="3"><span id="content-3">3</span></g-collapse-item>
+          <!--span是放在插槽里面的-->
         </g-collapse>
     `
         const vm = new Vue({
