@@ -14223,6 +14223,22 @@ var _default = {
       visible: false
     };
   },
+  props: {
+    position: {
+      type: String,
+      default: 'top',
+      validator: function validator(value) {
+        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
+      }
+    },
+    trigger: {
+      type: String,
+      default: 'click',
+      validator: function validator(value) {
+        return ['click', 'hover'].indexOf(value) >= 0;
+      }
+    }
+  },
   mounted: function mounted() {
     if (this.trigger === 'click') {
       //由于要有多种触发方式，所以不能用 @click='onClick' 方法
@@ -14257,28 +14273,12 @@ var _default = {
       }
     }
   },
-  props: {
-    position: {
-      type: String,
-      default: 'top',
-      validator: function validator(value) {
-        return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0;
-      }
-    },
-    trigger: {
-      type: String,
-      default: 'click',
-      validator: function validator(value) {
-        return ['click', 'hover'].indexOf(value) >= 0;
-      }
-    }
-  },
   methods: {
     positionContent: function positionContent() {
       /*                document.body.appendChild(this.$refs.contentWrapper)
-                      let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
-                      this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
-                      this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'*/
+          let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
+          this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+          this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'*/
       var _this$$refs = this.$refs,
           contentWrapper = _this$$refs.contentWrapper,
           triggerWrapper = _this$$refs.triggerWrapper;
@@ -14319,7 +14319,9 @@ var _default = {
       //注意，这里必须写成function函数的形式，如果写成箭头函数，则函数内部没有this
       if (this.$refs.popover && (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))) {
         return;
-      }
+      } //用这个语句代替 stop，起到阻断冒泡的作用，又不会有阻断冒泡的故障
+      //只监听body内除了popover（包括按钮和浮层）的内容
+
 
       if (this.$refs.contentWrapper && (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))) {
         return;
@@ -14431,6 +14433,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+var _vue = _interopRequireDefault(require("vue"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -14438,7 +14445,55 @@ exports.default = void 0;
 //
 //
 var _default = {
-  name: "GuluCollapse"
+  name: "GuluCollapse",
+  props: {
+    single: {
+      //表示允不允许多个item同时打开
+      type: Boolean,
+      default: false
+    },
+    selected: {
+      type: Array
+    }
+  },
+  data: function data() {
+    return {
+      eventBus: new _vue.default()
+    };
+  },
+  provide: function provide() {
+    return {
+      eventBus: this.eventBus
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus.$emit('update:selected', this.selected);
+    this.eventBus.$on('update:addSelected', function (name) {
+      var selectedCopy = JSON.parse(JSON.stringify(_this.selected)); //深拷贝
+
+      if (_this.single) {
+        selectedCopy = [name];
+      } else {
+        selectedCopy.push(name);
+      }
+
+      _this.eventBus.$emit('update:selected', selectedCopy);
+
+      _this.$emit('update:selected', selectedCopy); //index.html上要打印出selectedTab，所以要触发事件，把selectedTab传到外面（eventBus还是在里面）
+
+    });
+    this.eventBus.$on('update:removeSelected', function (name) {
+      var selectedCopy = JSON.parse(JSON.stringify(_this.selected));
+      var index = selectedCopy.indexOf(name);
+      selectedCopy.splice(index, 1);
+
+      _this.eventBus.$emit('update:selected', selectedCopy);
+
+      _this.$emit('update:selected', selectedCopy);
+    });
+  }
 };
 exports.default = _default;
         var $0c0635 = exports.default || module.exports;
@@ -14488,7 +14543,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.common.js"}],"src/collapse-item.vue":[function(require,module,exports) {
+},{"vue":"node_modules/vue/dist/vue.common.js","_css_loader":"../../../AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js"}],"src/collapse-item.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14512,12 +14567,37 @@ var _default = {
     title: {
       type: String,
       required: true
+    },
+    name: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
     return {
       open: false
     };
+  },
+  inject: ['eventBus'],
+  mounted: function mounted() {
+    var _this = this;
+
+    this.eventBus && this.eventBus.$on('update:selected', function (names) {
+      if (names.indexOf(_this.name) >= 0) {
+        _this.open = true;
+      } else {
+        _this.open = false;
+      }
+    });
+  },
+  methods: {
+    toggle: function toggle() {
+      if (this.open) {
+        this.eventBus && this.eventBus.$emit('update:removeSelected', this.name);
+      } else {
+        this.eventBus && this.eventBus.$emit('update:addSelected', this.name);
+      }
+    }
   }
 };
 exports.default = _default;
@@ -14534,21 +14614,17 @@ exports.default = _default;
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "collapseItem" }, [
-    _c(
-      "div",
-      {
-        staticClass: "title",
-        on: {
-          click: function($event) {
-            _vm.open = !_vm.open
-          }
-        }
-      },
-      [_vm._v("\n        " + _vm._s(_vm.title) + "\n    ")]
-    ),
+    _c("div", { staticClass: "title", on: { click: _vm.toggle } }, [
+      _vm._v("\n        " + _vm._s(_vm.title) + "\n    ")
+    ]),
     _vm._v(" "),
     _vm.open
-      ? _c("div", { staticClass: "content" }, [_vm._t("default")], 2)
+      ? _c(
+          "div",
+          { ref: "content", staticClass: "content" },
+          [_vm._t("default")],
+          2
+        )
       : _vm._e()
   ])
 }
@@ -25744,7 +25820,7 @@ new _vue.default({
     loading2: true,
     loading3: false,
     message: 'hi',
-    selectedTab: 'sports'
+    selectedTab: ['2', '1']
   },
   created: function created() {//setTimeout(()=>{
     //    let event = new Event('change');
@@ -26016,7 +26092,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "10997" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "7854" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

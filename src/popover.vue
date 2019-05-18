@@ -19,6 +19,22 @@
                 visible: false,
             }
         },
+        props: {
+            position: {
+                type: String,
+                default: 'top',
+                validator (value) {
+                    return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
+                }
+            },
+            trigger: {
+                type: String,
+                default: 'click',
+                validator (value) {
+                    return ['click', 'hover'].indexOf(value) >= 0
+                }
+            }
+        },
         mounted () {
             if (this.trigger === 'click') {//由于要有多种触发方式，所以不能用 @click='onClick' 方法
                 this.$refs.popover.addEventListener('click', this.onClick)
@@ -51,25 +67,9 @@
                 }
             }
         },
-        props: {
-            position: {
-                type: String,
-                default: 'top',
-                validator (value) {
-                    return ['top', 'bottom', 'left', 'right'].indexOf(value) >= 0
-                }
-            },
-            trigger: {
-                type: String,
-                default: 'click',
-                validator (value) {
-                    return ['click', 'hover'].indexOf(value) >= 0
-                }
-            }
-        },
         methods: {
             positionContent () {
-/*                document.body.appendChild(this.$refs.contentWrapper)
+            /*                document.body.appendChild(this.$refs.contentWrapper)
                 let {width, height, top, left} = this.$refs.triggerWrapper.getBoundingClientRect()
                 this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
                 this.$refs.contentWrapper.style.top = top + window.scrollY + 'px'*/
@@ -95,7 +95,8 @@
             onClickDocument (e) {//注意，这里必须写成function函数的形式，如果写成箭头函数，则函数内部没有this
                 if (this.$refs.popover &&
                     (this.$refs.popover === e.target || this.$refs.popover.contains(e.target))
-                ) { return }
+                ) { return }//用这个语句代替 stop，起到阻断冒泡的作用，又不会有阻断冒泡的故障
+                //只监听body内除了popover（包括按钮和浮层）的内容
                 if (this.$refs.contentWrapper &&
                     (this.$refs.contentWrapper === e.target || this.$refs.contentWrapper.contains(e.target))
                 ) { return }
@@ -139,7 +140,7 @@
         border: 1px solid $border-color;
         border-radius: $border-radius;
         filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));   /*解决所加伪元素没有border-shadow的问题*/
-        background: white;              /*解决border-shadow问题时，字也会有shadow，所以加background*/
+        background:white;              /*解决border-shadow问题时，字也会有shadow，所以加background*/
         padding: .5em 1em;
         max-width: 20em;        /*字再多，最大宽度也只有这么多*/
         word-break: break-all;        /*防止一个单词过长，超过max-width（英文环境下慎用）*/

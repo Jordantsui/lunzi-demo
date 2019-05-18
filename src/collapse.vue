@@ -37,7 +37,7 @@
                     selectedCopy.push(name)
                 }
                 this.eventBus.$emit('update:selected', selectedCopy)
-                this.$emit('update:selected', selectedCopy)
+                this.$emit('update:selected', selectedCopy)     //index.html上要打印出selectedTab，所以要触发事件，把selectedTab传到外面（eventBus还是在里面）
             })
             this.eventBus.$on('update:removeSelected', (name) => {
                 let selectedCopy = JSON.parse(JSON.stringify(this.selected))
