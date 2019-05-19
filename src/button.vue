@@ -33,20 +33,23 @@
     }
 </script>
 <style lang="scss" scoped>
-/*    $font-size: 14px;
-    $button-height: 32px;
-    $button-bg: white;
-    $button-active-bg: #eee;
-    $border-radius: 4px;
-    $color: #333;
+    /*$border-color-hover: #666;
     $border-color: #999;
-    $border-color-hover: #666;*/
+    $border-radius: 4px;
+    $box-shadow-color: rgba(0, 0, 0, 0.5);
+    $button-active-bg: #eee;
+    $button-bg: white;
+    $button-height: 32px;
+    $color: #333;
+    $font-size: 14px;
+    $input-height: 32px;
+    $red: #F1453D;*/
     @import "var";       /*将 scss 变量提升到 var.scss*/
     @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
-/*    .g-button {
+    /*.g-button {
         font-size: var(--font-size);
         height: var(--button-height);
         padding: 0 1em;

@@ -13853,7 +13853,7 @@ var _default = {
 
       _this.$refs.line.style.width = "".concat(width, "px"); //注意这里，vm.$el 就是tabs-item对应的元素，获取宽高可以，top和 left也能获取到（tabs-item不是绝对定位）
 
-      _this.$refs.line.style.left = "".concat(left, "px");
+      _this.$refs.line.style.left = "".concat(left - 100, "px");
     });
   }
 };
@@ -26098,7 +26098,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "12782" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "14077" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
