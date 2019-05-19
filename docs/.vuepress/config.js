@@ -1,4 +1,5 @@
 module.exports = {
+    base: '/lunzi-demo/',
     title: '轱辘UI',
     description: '一个好用的UI框架',
     themeConfig: {
@@ -16,9 +17,17 @@ module.exports = {
                 ]
             },
             {
-                title: '组件',
-                children: ['/components/button']
-            },
+                title: '组件2',
+                children: [
+                    '/components/button',
+                    '/components/tabs',
+                    '/components/input',
+                    '/components/grid',
+                    '/components/layout',
+                    '/components/toast',
+                    '/components/tabs',
+                ]
+            }
 
         ]
     }

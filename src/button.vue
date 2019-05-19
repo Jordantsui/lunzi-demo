@@ -52,7 +52,7 @@
         border-radius: var(--border-radius);
         border: 1px solid var(--border-color);
         background: var(--button-bg);*/
-    .g-button { font-size: $font-size; height: $button-height; padding: 0 1em;/*将css变量写法改为scss写法，否则用vuepress时会失效*/
+    .g-button { font-size: $font-size; height: $button-height; padding: 0 1em;/*将html变量写法改为scss变量，否则用vuepress时会失效*/
         border-radius: $border-radius; border: 1px solid $border-color;
         background: $button-bg;
         display: inline-flex; justify-content: center; align-items: center;
