@@ -1,8 +1,3 @@
-<button @click="showToast1">top</button>
-<button @click="showToast2">middle</button>
-<button @click="showToast3">bottom</button>
-
-
 <template>
     <div>
         <button @click="showToast1">top</button>
@@ -15,7 +10,7 @@
     </div>
 </template>
 <script>
-    import '../../../src/'
+    //import '../../../src/app.js'
     export default {
         data () {
             return {
